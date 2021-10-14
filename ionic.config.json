@@ -1,0 +1,7 @@
+{
+  "name": "EasyOrder",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
