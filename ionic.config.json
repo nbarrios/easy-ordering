@@ -1,7 +1,7 @@
 {
-  "name": "EasyOrder",
+  "name": "easy-order",
   "integrations": {
     "capacitor": {}
   },
-  "type": "react"
+  "type": "angular"
 }

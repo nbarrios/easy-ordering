@@ -2,8 +2,8 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
-  appName: 'EasyOrder',
-  webDir: 'build',
+  appName: 'easy-order',
+  webDir: 'www',
   bundledWebRuntime: false
 };
 
