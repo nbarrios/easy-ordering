@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-order.page.scss'],
 })
 export class NewOrderPage implements OnInit {
+  detailedRestaurantInfo = false;
+  sendPaymentInfo = false;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onPaymentToggle($event) {
+    console.log($event.target.checked);
   }
 
 }
