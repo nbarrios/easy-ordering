@@ -8,7 +8,7 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
+        path: 'signup',
         loadChildren: () => import('../signup/signup.module').then(m => m.SignupPageModule)
       },
       {
@@ -21,7 +21,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/signup',
         pathMatch: 'full'
       }
     ]
