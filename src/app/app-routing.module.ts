@@ -7,17 +7,16 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
-<<<<<<< HEAD
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: 'signup',
     loadChildren: () => import('./signup/signup.module').then( m => m.SignupPageModule)
-=======
+  },
+  {
     path: 'new-order',
     loadChildren: () => import('./new-order/new-order.module').then( m => m.NewOrderPageModule)
->>>>>>> parent of 0d6fc01 (Revert "Merge branch 'main' into Megan")
   }
 ];
 @NgModule({
