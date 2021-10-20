@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>login</ion-title>
+    <ion-title>signup</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -18,10 +21,6 @@
     </ion-item>
     <br>
 
-    <ion-button (click)='login()' expand='block'>Login</ion-button>
-    <br>
-
-    <h5 (click)='signup'>Don't have an account?</h5>
-    <ion-text color='primary'>Sign up here</ion-text>
+    <ion-button (click)='signup' expand='block'>Sign Up</ion-button>
   </div>
 </ion-content>
