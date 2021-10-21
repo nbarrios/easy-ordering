@@ -4,15 +4,14 @@
 
 export const environment = {
   production: false,
-
-  firebaseConfig: {
-    apiKey: "AIzaSyAdoZlNfhx7RSboOvhrTdb9LdghYhwL0Zo",
-    authDomain: "easy-order-4ba7a.firebaseapp.com",
-    projectId: "easy-order-4ba7a",
-    storageBucket: "easy-order-4ba7a.appspot.com",
-    messagingSenderId: "621725360024",
-    appId: "1:621725360024:web:c308568899d60df0cad5ed",
-    measurementId: "G-WGKR004L8J"
+  firebase: {
+    apiKey: 'AIzaSyAdoZlNfhx7RSboOvhrTdb9LdghYhwL0Zo',
+    authDomain: 'easy-order-4ba7a.firebaseapp.com',
+    projectId: 'easy-order-4ba7a',
+    storageBucket: 'easy-order-4ba7a.appspot.com',
+    messagingSenderId: '621725360024',
+    appId: '1:621725360024:web:c308568899d60df0cad5ed',
+    measurementId: 'G-WGKR004L8J'
   }
 };
 
