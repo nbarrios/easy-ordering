@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FireserviceService } from '../fireservice.service';
+import { FirebaseService } from '../firebase.service';
 
 @Component({
   selector: 'app-signup',
@@ -12,7 +12,7 @@ export class SignupPage implements OnInit {
   public confirmPassword: string;
 
   constructor(
-    public fireService: FireserviceService
+    public fireService: FirebaseService
   ) { }
 
   ngOnInit() {
@@ -33,7 +33,7 @@ export class SignupPage implements OnInit {
           password:this.password,
           uid:res.user.uid
         };
-        this.fireService.saveDetails(data).then(res=>{
+        this.fireService.saveDetails(data).then(() => {
          alert('Account Created!');
         },err=>{
           console.log(err);
