@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>signup</ion-title>
+    <ion-title>Sign-up</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -17,10 +17,16 @@
 
     <ion-item>
       <ion-label position="stacked">Password</ion-label>
-      <ion-input [(ngModel)]='password'></ion-input>
+      <ion-input [(ngModel)]='password' type='password'></ion-input>
     </ion-item>
     <br>
 
-    <ion-button (click)='signup' expand='block'>Sign Up</ion-button>
+    <ion-item>
+      <ion-label position="stacked">Confirm Password</ion-label>
+      <ion-input [(ngModel)]='confirmPassword' type='password'></ion-input>
+    </ion-item>
+    <br>
+
+    <ion-button (click)='signup()' expand='block'>Sign Up</ion-button>
   </div>
 </ion-content>

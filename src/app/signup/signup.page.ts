@@ -7,35 +7,41 @@ import { FireserviceService } from '../fireservice.service';
   styleUrls: ['./signup.page.scss'],
 })
 export class SignupPage implements OnInit {
-  public email:any;
-  public password:any;
+  public email: string;
+  public password: string;
+  public confirmPassword: string;
+
   constructor(
-    public fireService:FireserviceService
+    public fireService: FireserviceService
   ) { }
 
   ngOnInit() {
   }
 
-  signup(){ 
-    this.fireService.signup({email:this.email,password:this.password})
+  signup() {
+    //Check that password fields match
+    if (this.password !== this.confirmPassword) {
+      alert('Please confirm that the passwords match');
+      return;
+    }
+
+    this.fireService.signup({email: this.email, password: this.password})
     .then(res=>{
       if(res.user.uid){
-        let data = {
+        const data = {
           email:this.email,
           password:this.password,
           uid:res.user.uid
-        }
+        };
         this.fireService.saveDetails(data).then(res=>{
          alert('Account Created!');
         },err=>{
           console.log(err);
-        })
+        });
       }
     },err=>{
       alert(err.message);
-
       console.log(err);
-    })
+    });
   }
-
 }
