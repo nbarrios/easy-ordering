@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FireserviceService } from '../fireservice.service';
 
 @Component({
   selector: 'app-signup',
@@ -6,10 +7,35 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./signup.page.scss'],
 })
 export class SignupPage implements OnInit {
-
-  constructor() { }
+  public email:any;
+  public password:any;
+  constructor(
+    public fireService:FireserviceService
+  ) { }
 
   ngOnInit() {
+  }
+
+  signup(){ 
+    this.fireService.signup({email:this.email,password:this.password})
+    .then(res=>{
+      if(res.user.uid){
+        let data = {
+          email:this.email,
+          password:this.password,
+          uid:res.user.uid
+        }
+        this.fireService.saveDetails(data).then(res=>{
+         alert('Account Created!');
+        },err=>{
+          console.log(err);
+        })
+      }
+    },err=>{
+      alert(err.message);
+
+      console.log(err);
+    })
   }
 
 }
