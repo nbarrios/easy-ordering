@@ -30,7 +30,7 @@ export class SignupPage implements OnInit {
     .then(res=>{
       if(res.user.uid){
         userData.uid = res.user.uid;
-        this.fireService.saveDetails(userData).then(() => {
+        this.fireService.saveDetails(userData).then(res => {
          alert('Account Created!');
         },err=>{
           console.log(err);
