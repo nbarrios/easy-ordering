@@ -8,16 +8,16 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'signup',
-        loadChildren: () => import('../signup/signup.module').then(m => m.SignupPageModule)
+        path: 'tab1',
+        loadChildren: () => import('../login/login.module').then(m => m.LoginPageModule)
       },
       {
         path: 'tab2',
         loadChildren: () => import('../new-order/new-order.module').then(m => m.NewOrderPageModule)
       },
       {
-        path: 'login',
-        loadChildren: () => import('../login/login.module').then(m => m.LoginPageModule)
+        path: 'tab3',
+        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
       },
       {
         path: '',
@@ -28,7 +28,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/tabs/signup',
+    redirectTo: '/tabs/login',
     pathMatch: 'full'
   }
 ];
