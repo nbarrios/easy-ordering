@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseService } from '../firebase.service';
+import { FirebaseService, FirebaseUserData } from '../firebase.service';
 
 @Component({
   selector: 'app-signup',
@@ -25,15 +25,12 @@ export class SignupPage implements OnInit {
       return;
     }
 
-    this.fireService.signup({email: this.email, password: this.password})
+    const userData = new FirebaseUserData(this.email, this.password);
+    this.fireService.signup(userData)
     .then(res=>{
       if(res.user.uid){
-        const data = {
-          email:this.email,
-          password:this.password,
-          uid:res.user.uid
-        };
-        this.fireService.saveDetails(data).then(() => {
+        userData.uid = res.user.uid;
+        this.fireService.saveDetails(userData).then(() => {
          alert('Account Created!');
         },err=>{
           console.log(err);

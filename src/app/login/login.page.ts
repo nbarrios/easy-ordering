@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FirebaseService } from '../firebase.service';
+import { FirebaseService, FirebaseUserData } from '../firebase.service';
 
 @Component({
   selector: 'app-login',
@@ -21,10 +21,12 @@ export class LoginPage implements OnInit {
 
 
   login(){
-    this.fireService.loginWithAccount({email:this.email,password:this.password}).then(res=>{
+    const userData = new FirebaseUserData(this.email, this.password);
+    this.fireService.loginWithAccount(userData).then(res=>{
       console.log(res);
       if(res.user.uid){
-        this.fireService.getDetails({uid:res.user.uid}).subscribe(() => {
+        userData.uid = res.user.uid;
+        this.fireService.getDetails(userData).subscribe(() => {
           console.log(res);
           alert('Welcome ');
         },err=>{
@@ -36,7 +38,6 @@ export class LoginPage implements OnInit {
       console.log(err);
     });
   }
-
 
   signup(){
     this.router.navigateByUrl('signup');
