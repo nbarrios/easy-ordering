@@ -5,23 +5,33 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div class="form">
-    <ion-item>
-      <ion-label position="stacked">Email</ion-label>
-      <ion-input [(ngModel)]='email'></ion-input>
-    </ion-item>
-    <br>  <!--- Line break-->
+  <ion-card>
+    <ion-segment (ionChange)="changePage($event)">
+      <ion-segment-button value="login">
+        <ion-label>Log-in</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="signup">
+        <ion-label>Sign-up</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <div class="form">
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input [(ngModel)]='email'></ion-input>
+      </ion-item>
+      <br>  <!--- Line break-->
 
-    <ion-item>
-      <ion-label position="stacked">Password</ion-label>
-      <ion-input [(ngModel)]='password'></ion-input>
-    </ion-item>
-    <br>
+      <ion-item>
+        <ion-label position="stacked">Password</ion-label>
+        <ion-input [(ngModel)]='password'></ion-input>
+      </ion-item>
+      <br>
 
-    <ion-button (click)='login()' expand='block'>Login</ion-button>
-    <br>
+      <ion-button (click)='login()' expand='block'>Login</ion-button>
+      <br>
 
-    <h5 (click)='signup'>Don't have an account?</h5>
-    <ion-text color='primary'>Sign up here</ion-text>
-  </div>
+      <h5 (click)='signup'>Don't have an account?</h5>
+      <ion-text color='primary'><a href="/tabs/signup">Sign up here</a></ion-text>
+    </div>
+  </ion-card>
 </ion-content>

@@ -19,6 +19,8 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
+  changePage($event) {
+  }
 
   login(){
     const userData = new FirebaseUserData(this.email, this.password);
