@@ -20,14 +20,9 @@ export class Tab1Page implements OnInit {
 
   previousOrders: OrderDetail[] = this.pOrdersProvider.getPreviousOrders();
 
-  filled = OrderStatus.filled;
-  notFilled = OrderStatus.notFilled;
-  declined = OrderStatus.declined;
 
   constructor(
-    public navCtrl: NavController,
     private ordersProvider: ActiveOrdersProvider,
-    private resolver: ComponentFactoryResolver,
     private pOrdersProvider: PreviousOrdersProvider
   ) {}
 
