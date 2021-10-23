@@ -1,9 +1,8 @@
 import { Component, ComponentFactoryResolver, ComponentRef, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { OrderDetail } from './models/OrderDetail';
-import { Members, OrderStatus } from './models/Members';
 import { ActiveOrdersProvider } from './providers/ActiveOrdersProvider';
-import { NavController } from '@ionic/angular';
 import { PreviousOrdersProvider } from './providers/previousOrdersProvider';
+
 
 @Component({
   selector: 'app-tab1',
@@ -15,8 +14,8 @@ export class Tab1Page implements OnInit {
   @ViewChild('activeOrders', {read: ViewContainerRef}) container: ViewContainerRef;
 
   activeOrders: OrderDetail[] = this.ordersProvider.getActiveOrders();
-  orderDetail: OrderDetail = this.activeOrders[0];
-  members: Members[] = this.orderDetail.members;
+ // orderDetail: OrderDetail = this.activeOrders[0];
+ // members: Members[] = this.orderDetail.members;
 
   previousOrders: OrderDetail[] = this.pOrdersProvider.getPreviousOrders();
 

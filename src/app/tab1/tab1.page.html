@@ -17,47 +17,12 @@
   <ion-grid>
     <ion-row>
       <ion-col size-md="6" offset-md="3">
-        <ion-card>
-          <ion-card-header>
-            <ion-grid>
-              <ion-row>
-                <ion-col size="2">
-                  <ion-img>src="/src/app/tab1/icons/checkmark-outline.svg"</ion-img>
-                </ion-col>
-                <ion-col>
-                  <ion-row>
-                    <h3>Active Order</h3>
-                  </ion-row>
-                  <ion-row #store>{{ orderDetail.storeName }}</ion-row>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-card-header>
 
-
-          <ion-card-content>
-            <ion-grid>
-              <ion-row>
-                  <div *ngFor="let member of members; let i = index">
-                    <ion-chip>
-                      <ion-icon src={{member.iconLink}}></ion-icon>
-                      <ion-label>{{member.name}}</ion-label>
-                    </ion-chip>
-                  </div>
-              </ion-row>
-
-              <ion-row class="ion-margin-top" margin-vertical>
-                <ion-col>Group Message</ion-col>
-                <ion-col>
-                  <p class="ion-text-right">{{ orderDetail.members.length }} people</p>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>{{ orderDetail.groupMsg }}</ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-card-content>
-        </ion-card>
+        <ion-slides>
+          <ion-slide *ngFor="let aOrder of activeOrders">
+            <app-card-active-order [order]="aOrder"></app-card-active-order>
+          </ion-slide>
+        </ion-slides>
 
           <ion-row>
             <ion-col><h3>PREVIOUS ORDERS</h3></ion-col>

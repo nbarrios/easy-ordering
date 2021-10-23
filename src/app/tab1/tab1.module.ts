@@ -8,6 +8,7 @@ import { ActiveOrdersProvider } from './providers/ActiveOrdersProvider';
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 import { PreviousOrdersProvider } from './providers/previousOrdersProvider';
 import { PreviousOrderComponent } from './components/previous-order/previous-order.component';
+import { CardActiveOrderComponent } from './components/card-active-order/card-active-order.component';
 
 @NgModule({
   imports: [
@@ -15,11 +16,12 @@ import { PreviousOrderComponent } from './components/previous-order/previous-ord
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    Tab1PageRoutingModule
+    Tab1PageRoutingModule,
   ],
   declarations: [
     Tab1Page,
-    PreviousOrderComponent
+    PreviousOrderComponent,
+    CardActiveOrderComponent
   ],
   entryComponents: [
   ],

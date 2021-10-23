@@ -1,0 +1,40 @@
+<ion-card>
+  <ion-card-header>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="2">
+          <ion-img>src="/src/app/tab1/icons/checkmark-outline.svg"</ion-img>
+        </ion-col>
+        <ion-col>
+          <ion-row>
+            <h3>Active Order</h3>
+          </ion-row>
+          <ion-row #store>{{ order.storeName }}</ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-grid>
+      <ion-row>
+          <div *ngFor="let member of order.members; let i = index">
+            <ion-chip>
+              <ion-icon src={{member.iconLink}}></ion-icon>
+              <ion-label>{{member.name}}</ion-label>
+            </ion-chip>
+          </div>
+      </ion-row>
+
+      <ion-row class="ion-margin-top">
+        <ion-col class="ion-text-left">Group Message</ion-col>
+        <ion-col>
+          <p class="ion-text-right">{{ order.members.length }} people</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ion-text-left">{{ order.groupMsg }}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+</ion-card>
