@@ -17,6 +17,10 @@ const routes: Routes = [
   {
     path: 'new-order',
     loadChildren: () => import('./new-order/new-order.module').then( m => m.NewOrderPageModule)
+  },
+  {
+    path: 'group-order',
+    loadChildren: () => import('./tab1/tab1.module').then( m => m.Tab1PageModule)
   }
 ];
 @NgModule({

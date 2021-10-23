@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Easy Order
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,72 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">Easy Order</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+        <ion-card>
+          <ion-card-header>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="2">
+                  <ion-img>src="/src/app/tab1/icons/checkmark-outline.svg"</ion-img>
+                </ion-col>
+                <ion-col>
+                  <ion-row>
+                    <h3>Active Order</h3>
+                  </ion-row>
+                  <ion-row #store>{{ orderDetail.storeName }}</ion-row>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-header>
+
+
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                  <div *ngFor="let member of members; let i = index">
+                    <ion-chip>
+                      <ion-icon src={{member.iconLink}}></ion-icon>
+                      <ion-label>{{member.name}}</ion-label>
+                    </ion-chip>
+                  </div>
+              </ion-row>
+
+              <ion-row class="ion-margin-top" margin-vertical>
+                <ion-col>Group Message</ion-col>
+                <ion-col>
+                  <p class="ion-text-right">{{ orderDetail.members.length }} people</p>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>{{ orderDetail.groupMsg }}</ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+
+          <ion-row>
+            <ion-col><h3>PREVIOUS ORDERS</h3></ion-col>
+          </ion-row>
+          <ion-row  *ngFor="let pOrder of previousOrders">
+            <ion-col>
+            <app-previous-order [order] = "pOrder"></app-previous-order>
+          </ion-col>
+          </ion-row>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button >
+      <ion-icon src="/assets/icon/plus.svg"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
