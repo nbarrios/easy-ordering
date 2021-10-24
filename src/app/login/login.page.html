@@ -17,10 +17,11 @@
       </ion-segment-button>
     </ion-segment>
 
-    <div [ngSwitch]='userAuth'>
+    <ion-item-group [ngSwitch]='userAuth'>
       <!------ Switch to Login Page-->
       <ion-item-group *ngSwitchCase="'login'">
         <ion-item>
+          <br>
           <ion-label position="stacked">Email</ion-label>
           <ion-input [(ngModel)]='email'></ion-input>
         </ion-item>
@@ -59,12 +60,12 @@
         <ion-button (click)='signup()' expand='block'>Sign Up</ion-button>
       </ion-item-group>
       <br>
-    </div>
+    </ion-item-group>
   </ion-card>
 
-  <div id="centered">
+  <ion-text id="centered">
     <h1 style="font-size: 20px;">Or connect with</h1>
-  </div>
+  </ion-text>
 
   <!----- Google Button-->
   <div id="centered">

@@ -41,11 +41,6 @@ export class LoginPage implements OnInit {
     });
   }
 
-  // What is this? Delete if not needed
-  /*signup(){
-    this.router.navigateByUrl('signup');
-  }*/
-
   signup() {
     //Check that password fields match
     if (this.password !== this.confirmPassword) {
@@ -59,7 +54,7 @@ export class LoginPage implements OnInit {
       if(res.user.uid){
         userData.uid = res.user.uid;
         this.fireService.saveDetails(userData).then(() => {
-         alert('Account Created!');                 //Help: Does not print this message
+         alert('Account Created!');
         },err=>{
           console.log(err);
         });
