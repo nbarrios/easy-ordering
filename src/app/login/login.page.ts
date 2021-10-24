@@ -58,7 +58,7 @@ export class LoginPage implements OnInit {
     .then(res=>{
       if(res.user.uid){
         userData.uid = res.user.uid;
-        this.fireService.saveDetails(userData).then(res => {
+        this.fireService.saveDetails(userData).then(() => {
          alert('Account Created!');                 //Help: Does not print this message
         },err=>{
           console.log(err);
