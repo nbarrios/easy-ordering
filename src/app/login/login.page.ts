@@ -30,7 +30,7 @@ export class LoginPage implements OnInit {
         userData.uid = res.user.uid;
         this.fireService.getDetails(userData).subscribe(() => {
           console.log(res);
-          alert('Welcome ');
+          this.router.navigateByUrl('/');
         },err=>{
           console.log(err);
         });
@@ -54,7 +54,8 @@ export class LoginPage implements OnInit {
       if(res.user.uid){
         userData.uid = res.user.uid;
         this.fireService.saveDetails(userData).then(() => {
-         alert('Account Created!');
+          console.log('Account created: ' + res.user.uid);
+          this.router.navigateByUrl('/');
         },err=>{
           console.log(err);
         });
