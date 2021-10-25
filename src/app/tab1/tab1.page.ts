@@ -1,4 +1,5 @@
 import { Component, ComponentFactoryResolver, ComponentRef, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { OrderDetail } from './models/OrderDetail';
 import { ActiveOrdersProvider } from './providers/ActiveOrdersProvider';
 import { PreviousOrdersProvider } from './providers/previousOrdersProvider';
@@ -22,12 +23,17 @@ export class Tab1Page implements OnInit {
 
   constructor(
     private ordersProvider: ActiveOrdersProvider,
-    private pOrdersProvider: PreviousOrdersProvider
+    private pOrdersProvider: PreviousOrdersProvider,
+    public router: Router
   ) {}
 
 
   public showOrder(order: OrderDetail){
 
+  }
+
+  startNewOrder() {
+    this.router.navigateByUrl('/neworder');
   }
 
   ngOnInit(){
