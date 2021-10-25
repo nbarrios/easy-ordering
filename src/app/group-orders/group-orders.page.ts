@@ -6,11 +6,11 @@ import { PreviousOrdersProvider } from './providers/previousOrdersProvider';
 
 
 @Component({
-  selector: 'app-tab1',
-  templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss']
+  selector: 'app-grouporders',
+  templateUrl: 'group-orders.page.html',
+  styleUrls: ['group-orders.page.scss']
 })
-export class Tab1Page implements OnInit {
+export class GroupOrdersPage implements OnInit {
 
   @ViewChild('activeOrders', {read: ViewContainerRef}) container: ViewContainerRef;
 

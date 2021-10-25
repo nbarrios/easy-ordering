@@ -2,10 +2,10 @@ import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Tab1Page } from './tab1.page';
+import { GroupOrdersPage } from './group-orders.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 import { ActiveOrdersProvider } from './providers/ActiveOrdersProvider';
-import { Tab1PageRoutingModule } from './tab1-routing.module';
+import { GroupOrdersPageRoutingModule } from './group-orders-routing.module';
 import { PreviousOrdersProvider } from './providers/previousOrdersProvider';
 import { PreviousOrderComponent } from './components/previous-order/previous-order.component';
 import { CardActiveOrderComponent } from './components/card-active-order/card-active-order.component';
@@ -16,10 +16,10 @@ import { CardActiveOrderComponent } from './components/card-active-order/card-ac
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    Tab1PageRoutingModule,
+    GroupOrdersPageRoutingModule,
   ],
   declarations: [
-    Tab1Page,
+    GroupOrdersPage,
     PreviousOrderComponent,
     CardActiveOrderComponent
   ],
@@ -31,4 +31,4 @@ import { CardActiveOrderComponent } from './components/card-active-order/card-ac
   ]
 })
 
-export class Tab1PageModule {}
+export class GroupOrdersPageModule {}
