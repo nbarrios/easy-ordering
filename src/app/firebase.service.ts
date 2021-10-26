@@ -35,8 +35,7 @@ export class FirebaseService {
     //Unpack FirebaseUserData into plain object
     return this.firestore.collection('users').doc(data.uid).set({
       uid: data.uid,
-      email: data.email,
-      password: data.password
+      email: data.email
     });
   }
 
