@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { FirebaseService } from '../firebase.service';
 
 @Component({
-  selector: 'app-tab3',
-  templateUrl: 'tab3.page.html',
-  styleUrls: ['tab3.page.scss']
+  selector: 'app-settings',
+  templateUrl: 'settings.page.html',
+  styleUrls: ['settings.page.scss']
 })
-export class Tab3Page {
+export class SettingsPage {
 
   constructor(
     public fireservice: FirebaseService,
