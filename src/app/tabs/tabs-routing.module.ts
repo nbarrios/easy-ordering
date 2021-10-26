@@ -12,8 +12,8 @@ const routes: Routes = [
         loadChildren: () => import('../group-orders/group-orders.module').then(m => m.GroupOrdersPageModule)
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        path: 'shopping-lists',
+        loadChildren: () => import('../shopping-lists/shopping-lists.module').then(m => m.ShoppingListsPageModule)
       },
       {
         path: 'tab3',
