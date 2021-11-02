@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { OrderDetail } from '../../models/OrderDetail';
+import { Order } from '../../models/Order';
 
 @Component({
   selector: 'app-card-active-order',
@@ -8,7 +8,7 @@ import { OrderDetail } from '../../models/OrderDetail';
 })
 export class CardActiveOrderComponent implements OnInit {
 
-  @Input() order: OrderDetail;
+  @Input() order: Order;
 
   ngOnInit() {}
 

@@ -1,8 +1,9 @@
 import { Component, ComponentFactoryResolver, ComponentRef, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { OrderDetail } from './models/OrderDetail';
-import { ActiveOrdersProvider } from './providers/ActiveOrdersProvider';
-import { PreviousOrdersProvider } from './providers/previousOrdersProvider';
+import { Order } from './models/Order';
+//import { ActiveOrdersProvider } from './providers/ActiveOrdersProvider';
+//import { PreviousOrdersProvider } from './providers/previousOrdersProvider';
+import { OrdersProvider } from './providers/OrdersProvider';
 
 
 @Component({
@@ -14,21 +15,18 @@ export class GroupOrdersPage implements OnInit {
 
   @ViewChild('activeOrders', {read: ViewContainerRef}) container: ViewContainerRef;
 
-  activeOrders: OrderDetail[] = this.ordersProvider.getActiveOrders();
- // orderDetail: OrderDetail = this.activeOrders[0];
- // members: Members[] = this.orderDetail.members;
+  activeOrders: Order[] = this.ordersProvider.getAllActiveOrders();
 
-  previousOrders: OrderDetail[] = this.pOrdersProvider.getPreviousOrders();
+  previousOrders: Order[] = this.ordersProvider.getAllPreviousOrders();
 
 
   constructor(
-    private ordersProvider: ActiveOrdersProvider,
-    private pOrdersProvider: PreviousOrdersProvider,
+    private ordersProvider: OrdersProvider,
     public router: Router
   ) {}
 
 
-  public showOrder(order: OrderDetail){
+  public showOrder(order: Order){
 
   }
 

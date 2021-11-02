@@ -1,9 +1,12 @@
+import { v4 as uuidv4 } from 'uuid';
 // Model used to hold status of other members an active order card.
-export class Members{
+export class Member{
   public iconLink: string;
     constructor(
-      public name: string,
-      public orderStatus: OrderStatus){
+      public userId: string = '',
+      public name: string = '',
+      public pickupList: string[] = [],
+      public orderStatus: OrderStatus = OrderStatus.notFilled){
         switch(orderStatus){
           case OrderStatus.filled: {
             this.iconLink = '/assets/icon/filled.svg';

@@ -20,7 +20,7 @@
 
         <ion-slides>
           <ion-slide *ngFor="let aOrder of activeOrders">
-            <app-card-active-order [order]="aOrder"></app-card-active-order>
+            <app-card-active-order [order]="aOrder" [routerLink]="['./', aOrder.orderId]"></app-card-active-order>
           </ion-slide>
         </ion-slides>
 
@@ -29,7 +29,7 @@
           </ion-row>
           <ion-row  *ngFor="let pOrder of previousOrders">
             <ion-col>
-            <app-previous-order [order] = "pOrder"></app-previous-order>
+            <app-previous-order [order] = "pOrder" [routerLink]="['./', pOrder.orderId]"></app-previous-order>
           </ion-col>
           </ion-row>
 
@@ -39,7 +39,11 @@
 
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">
     <ion-fab-button (click)='startNewOrder()' color="success">
-      <ion-icon src="/assets/icon/plus.svg"></ion-icon>
+      <ion-icon name="Add"></ion-icon>
+      Start new order
     </ion-fab-button>
   </ion-fab>
+
+
+
 </ion-content>

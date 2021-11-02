@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { OrderDetail } from '../../models/OrderDetail';
+import { Order } from '../../models/Order';
 import { OrderStatus } from '../../models/Members';
 
 @Component({
@@ -11,7 +11,7 @@ export class PreviousOrderComponent {
 
 
   //@Output() showRequest: EventEmitter<OrderDetail> = new EventEmitter<OrderDetail>();
-  @Input() order: OrderDetail;
+  @Input() order: Order;
 
 
   /*showOrder(){

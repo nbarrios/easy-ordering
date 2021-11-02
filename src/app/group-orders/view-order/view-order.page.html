@@ -1,0 +1,93 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/group-orders"></ion-back-button>
+    </ion-buttons>
+    <ion-title> Easy Order </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Easy Order</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+        <ion-row>
+          <ion-col size="2">
+            <ion-img></ion-img>
+          </ion-col>
+
+          <ion-col>
+            <ion-row>
+              <ion-col>
+                <ion-label>{{order.storeName}}</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-label>{{order.pickupAddress}}</ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+
+        <ion-list>
+          <ion-list-header><h2>Pick-up list</h2></ion-list-header>
+
+            <!-- Current user list -->
+            <ion-item-sliding #userPickupList [hidden]="hideUserPickupList">
+              <ion-item>
+                <ion-label>
+                  <h2><b>{{userOrder.name}}</b>&nbsp;(You)</h2>
+                  <p style="flex:none; margin-left: 16px;" *ngFor="let item of userOrder.pickupList">{{item}}</p>
+                </ion-label>
+                <ion-item-options side="end">
+                  <ion-item-option style="pointer-events: auto" (click)='modifyUserList()'>
+                    Modify
+                  </ion-item-option>
+                  <ion-item-option color="danger" style="pointer-events: auto" (click)='deleteUserList()'>
+                    Delete
+                  </ion-item-option>
+                </ion-item-options>
+              </ion-item>
+            </ion-item-sliding>
+
+          <div #pickupList *ngFor="let member of order.members">
+            <!-- other members list -->
+            <ion-item *ngIf="(member.orderStatus === filled) && member.userId !== userId">
+              <ion-label>
+                <h2><b>{{member.name}}</b></h2>
+                <p style="flex: none; margin-left: 16px" *ngFor="let item of member.pickupList">
+                  {{item}}
+                </p>
+              </ion-label>
+            </ion-item>
+          </div>
+        </ion-list>
+
+        <ion-item [hidden]="hideInputOrder">
+          <ion-label position="floating">What are you ordering?</ion-label>
+          <ion-textarea #userInput autoGrow="true"></ion-textarea>
+        </ion-item>
+
+        <ion-grid [hidden]="hideInputOrder">
+          <ion-row class="ion-align-items-center">
+            <ion-col size="12" class="ion-text-center">
+              <ion-button
+                (click)="updateUserOrder(userInput.value)"
+                style="white-space: pre-wrap"
+              >
+                + Add your order to the list
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

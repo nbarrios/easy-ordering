@@ -12,6 +12,10 @@ const routes: Routes = [
         loadChildren: () => import('../group-orders/group-orders.module').then(m => m.GroupOrdersPageModule)
       },
       {
+        path: 'group-orders/:orderId',
+        loadChildren: () => import('../group-orders/view-order/view-order.module').then(m => m.ViewOrderPageModule)
+      },
+      {
         path: 'shopping-lists',
         loadChildren: () => import('../shopping-lists/shopping-lists.module').then(m => m.ShoppingListsPageModule)
       },
