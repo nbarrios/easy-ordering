@@ -16,7 +16,7 @@ export class OrdersProvider {
   private pickupList: string[] = [];
   private userStatus: Member[] = [
     new Member('7c1861d4-874c-4c76-bfe1-c83167a3870e', 'Jerry',
-    ['1 Steam Vegetarian Dumplings', 'Scallion Pancake Plate'], OrderStatus.filled),
+    ['1 Steam Vegetarian Dumplings', 'Scallion Pancake Plate'], OrderStatus.notFilled),
     new Member('4d3c40c4-55fd-4fb3-aed6-f6702f460468', 'Samantha',
     ['2 Egg Rolls Plate', '1 Fried Chicken Wings Plate'], OrderStatus.filled),
     new Member('21d70472-f704-4de2-9f03-f404c7954261', 'Clarice',
@@ -29,7 +29,7 @@ export class OrdersProvider {
   private order: Order = new Order(
     'abec5545-4a3a-4ba0-b479-8731c3207813',
     'Northern Cafe',
-    '9305 Reseda BLvd, Northridge CA 91324',
+    '9305 Reseda Blvd, Northridge CA 91324',
     'assets/icons/order-icon.svg',
     this.userStatus,
     'We\'re sharing a soup...',
