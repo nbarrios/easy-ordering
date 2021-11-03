@@ -1,3 +1,31 @@
 .form{
-    margin-top: 200px;
+    margin-top: 50px;
+}
+
+ion-content.background {
+    --background: url(./easyorder-bg.svg) 65% -100px no-repeat;
+}
+
+#title {
+    font-size: 30pt;
+    margin: 130px 0 10px 0;
+}
+
+.loginButtonPadding {
+    margin: 30px;
+}
+
+.googleBTN{
+    font-family: Verdana, Arial, Helvetica, sans-serif; 
+    font-size: 14px; 
+    margin-bottom: 10px;
+    border: 2px solid #dbdada;
+    background-color: white;
+}
+
+.facebookBTN{
+    font-family: Verdana, Arial, Helvetica, sans-serif; 
+    font-size: 14px; 
+    border: 2px solid #dbdada;
+    background-color: white;
 }

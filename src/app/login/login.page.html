@@ -1,27 +1,132 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
+<!-- <ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title>Easy Order</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
-<ion-content class="ion-padding">
-  <div class="form">
-    <ion-item>
-      <ion-label position="stacked">Email</ion-label>
-      <ion-input [(ngModel)]='email'></ion-input>
-    </ion-item>
-    <br>  <!--- Line break-->
+<ion-content class="ion-padding background">
 
     <ion-item>
       <ion-label position="stacked">Password</ion-label>
       <ion-input [(ngModel)]='password' type='password'></ion-input>
     </ion-item>
     <br>
+  <ion-grid>
+    <ion-row>
+      <ion-col class='ion-text-center'>
+        <ion-text><h1 id="title">Easy Order</h1></ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-    <ion-button (click)='login()' expand='block'>Login</ion-button>
-    <br>
+  <ion-card>
+    <!--- Change the Login and Sign up tabs on top-->
+    <ion-segment [(ngModel)]="userAuth" color="tertiary">
+      <ion-segment-button value="login">
+        <ion-label>Log-in</ion-label>
+      </ion-segment-button>
 
-    <h5 (click)='signup'>Don't have an account?</h5>
-    <ion-text color='primary'>Sign up here</ion-text>
-  </div>
+      <ion-segment-button value="signup">
+        <ion-label>Sign-up</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <ion-item-group [ngSwitch]='userAuth'>
+      <!------ Switch to Login Page-->
+      <ion-item-group *ngSwitchCase="'login'">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="stacked">Email</ion-label>
+                <ion-input [(ngModel)]='email'></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="stacked">Password</ion-label>
+                <ion-input [(ngModel)]='password' type='password'></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ion-text-center">
+              <ion-button (click)='login()' expand='block' color="tertiary" class='loginButtonPadding'>Log-in</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item-group>
+      
+      <!---- Switch to Sign up Page-->
+      <ion-item-group *ngSwitchCase="'signup'">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="stacked">Email</ion-label>
+                <ion-input [(ngModel)]='email'></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="stacked">Password</ion-label>
+                <ion-input [(ngModel)]='password' type='password'></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="stacked">Confirm Password</ion-label>
+                <ion-input [(ngModel)]='confirmPassword' type='password'></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-button (click)='signup()' expand='block' color='tertiary' class='loginButtonPadding'>Sign Up</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item-group>
+    </ion-item-group>
+  </ion-card>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-text>
+          <h1 style="font-size: 20px;">Or connect with</h1>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class='ion-text-center'>
+        <ion-button class="googleBTN" fill="clear" color="transparent" style="color: gray;">
+          <img width="20px" style="margin-top:1px; margin-right:8px" alt="Google sign-in" 
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+          Google
+        </ion-button>
+      </ion-col>
+      <ion-col class='ion-text-center'>
+        <ion-button class="facebookBTN" fill="clear" color="transparent" style="color: gray;">
+          <img width="20px" style="margin-top:1px; margin-right:8px" alt="Google sign-in" 
+          src="https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Facebook_f_logo_%282021%29.svg/1280px-Facebook_f_logo_%282021%29.svg.png" />
+          Facebook
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class='ion-text-center'>
+        <ion-text>
+          <h5 style="font-size: 10px;">By proceeding, you agree to Easy Ordering
+            Terms & conditions, & privacy policy</h5>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-order',
@@ -9,13 +10,19 @@ export class NewOrderPage implements OnInit {
   detailedRestaurantInfo = false;
   sendPaymentInfo = false;
 
-  constructor() { }
+  constructor(
+    public router : Router
+  ) { }
 
   ngOnInit() {
   }
 
   onPaymentToggle($event) {
     console.log($event.target.checked);
+  }
+
+  toPlaceOrder() {
+    this.router.navigateByUrl('/placeorder');
   }
 
 }

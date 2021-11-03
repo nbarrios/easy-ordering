@@ -32,7 +32,11 @@ export class FirebaseService {
   }
 
   saveDetails(data: FirebaseUserData) {
-    return this.firestore.collection('users').doc(data.uid).set(data);
+    //Unpack FirebaseUserData into plain object
+    return this.firestore.collection('users').doc(data.uid).set({
+      uid: data.uid,
+      email: data.email
+    });
   }
 
   getDetails(data: FirebaseUserData) {

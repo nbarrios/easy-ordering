@@ -8,27 +8,31 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'signup',
-        loadChildren: () => import('../signup/signup.module').then(m => m.SignupPageModule)
+        path: 'group-orders',
+        loadChildren: () => import('../group-orders/group-orders.module').then(m => m.GroupOrdersPageModule)
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('../new-order/new-order.module').then(m => m.NewOrderPageModule)
+        path: 'group-orders/:orderId',
+        loadChildren: () => import('../group-orders/view-order/view-order.module').then(m => m.ViewOrderPageModule)
       },
       {
-        path: 'login',
-        loadChildren: () => import('../login/login.module').then(m => m.LoginPageModule)
+        path: 'shopping-lists',
+        loadChildren: () => import('../shopping-lists/shopping-lists.module').then(m => m.ShoppingListsPageModule)
+      },
+      {
+        path: 'settings',
+        loadChildren: () => import('../settings/settings.module').then(m => m.SettingsPageModule)
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/group-orders',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/signup',
+    redirectTo: '/tabs/group-orders',
     pathMatch: 'full'
   }
 ];

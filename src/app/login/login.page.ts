@@ -7,9 +7,12 @@ import { FirebaseService, FirebaseUserData } from '../firebase.service';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
+
 export class LoginPage implements OnInit {
   public email: string;
   public password: string;
+  public confirmPassword: string;
+  userAuth = 'login';
 
   constructor(
     public router: Router,
@@ -19,7 +22,6 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-
   login(){
     const userData = new FirebaseUserData(this.email, this.password);
     this.fireService.loginWithAccount(userData).then(res=>{
@@ -28,7 +30,7 @@ export class LoginPage implements OnInit {
         userData.uid = res.user.uid;
         this.fireService.getDetails(userData).subscribe(() => {
           console.log(res);
-          alert('Welcome ');
+          this.router.navigateByUrl('/');
         },err=>{
           console.log(err);
         });
@@ -39,7 +41,28 @@ export class LoginPage implements OnInit {
     });
   }
 
-  signup(){
-    this.router.navigateByUrl('signup');
+  signup() {
+    //Check that password fields match
+    if (this.password !== this.confirmPassword) {
+      alert('Please confirm that the passwords match');
+      return;
+    }
+
+    const userData = new FirebaseUserData(this.email, this.password);
+    this.fireService.signup(userData)
+    .then(res=>{
+      if(res.user.uid){
+        userData.uid = res.user.uid;
+        this.fireService.saveDetails(userData).then(() => {
+          console.log('Account created: ' + res.user.uid);
+          this.router.navigateByUrl('/');
+        },err=>{
+          console.log(err);
+        });
+      }
+    },err=>{
+      alert(err.message);
+      console.log(err);
+    });
   }
 }

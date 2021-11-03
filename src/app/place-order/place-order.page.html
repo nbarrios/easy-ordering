@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/group-orders"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Place Order</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="3" class="ion-text-center ion-align-items-center">
+        <div>
+          <ion-icon class="restaurant-icon" name="fast-food-outline"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col size="9">
+        <ion-text><h1>Northern Cafe</h1></ion-text>
+        <ion-text color="medium">9305 Reseda Blvd, Northridge, CA 91324</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-list-header>
+            <ion-label>Pick-up List</ion-label>
+          </ion-list-header>
+          <ion-item>
+            <ion-list>
+              <ion-list-header>
+                <ion-label position="fixed">Jerry</ion-label>
+              </ion-list-header>
+              <ion-item class="order-item" lines="none">2 Beef Rolls</ion-item>
+              <ion-item class="order-item" lines="none">1 Orange Chicken</ion-item>
+            </ion-list>
+          </ion-item>
+          <ion-item>
+            <ion-list>
+              <ion-list-header>
+                <ion-label position="fixed">Samantha</ion-label>
+              </ion-list-header>
+              <ion-item class="order-item" lines="none">1 Shanghai Fried Noodles</ion-item>
+              <ion-item class="order-item" lines="none">1 Mapo Tofu</ion-item>
+              <ion-item class="order-item" lines="none">1 Chongqing Crispy Chicken</ion-item>
+            </ion-list>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-textarea placeholder="What are you ordering?" rows="10"></ion-textarea>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block">Submit</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
