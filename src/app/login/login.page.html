@@ -105,15 +105,15 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col class='ion-text-center'>
-        <ion-button class="googleBTN" fill="clear" color="transparent" style="color: gray;">
+      <ion-col class='ion-text-center' >
+        <ion-button class="googleBTN" (click)="loginWithGoogle()" fill="clear" color="transparent" style="color: gray;">
           <img width="20px" style="margin-top:1px; margin-right:8px" alt="Google sign-in" 
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
           Google
         </ion-button>
       </ion-col>
       <ion-col class='ion-text-center'>
-        <ion-button class="facebookBTN" fill="clear" color="transparent" style="color: gray;">
+        <ion-button class="facebookBTN" (click)="loginWithFacebook()" fill="clear" color="transparent" style="color: gray;">
           <img width="20px" style="margin-top:1px; margin-right:8px" alt="Google sign-in" 
           src="https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Facebook_f_logo_%282021%29.svg/1280px-Facebook_f_logo_%282021%29.svg.png" />
           Facebook

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FirebaseService, FirebaseUserData } from '../firebase.service';
+import firebase from 'firebase/compat/app';
 
 @Component({
   selector: 'app-login',
@@ -16,10 +18,12 @@ export class LoginPage implements OnInit {
 
   constructor(
     public router: Router,
-    public fireService: FirebaseService
+    public fireService: FirebaseService,
+    public auth: AngularFireAuth
   ) { }
 
   ngOnInit() {
+    console.log('Init');
   }
 
   login(){
@@ -64,5 +68,31 @@ export class LoginPage implements OnInit {
       alert(err.message);
       console.log(err);
     });
+  }
+
+  loginWithGoogle() {
+    this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+      .then(res => {
+        if (res.user) {
+          if(res.user.uid){
+            const userData = new FirebaseUserData(res.user.email);
+            userData.uid = res.user.uid;
+            this.fireService.getDetails(userData).subscribe(() => {
+              console.log(res);
+              this.router.navigateByUrl('/');
+            },err=>{
+              console.log(err);
+            });
+          }
+        }
+      }, err => {
+        console.log(err);
+      });
+  }
+
+  loginWithFacebook() {
+    alert('Testing Facebook Button');
+    // Does NOT work yet
+    //this.auth.signInWithRedirect(new firebase.auth.FacebookAuthProvider());
   }
 }
