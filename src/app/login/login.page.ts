@@ -71,6 +71,7 @@ export class LoginPage implements OnInit {
   }
 
   loginWithGoogle() {
+    //Need to use signInWithPopup to be directed into the app correctly
     this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then(res => {
         if (res.user) {
@@ -93,6 +94,6 @@ export class LoginPage implements OnInit {
   loginWithFacebook() {
     alert('Testing Facebook Button');
     // Does NOT work yet
-    //this.auth.signInWithRedirect(new firebase.auth.FacebookAuthProvider());
+    //this.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
   }
 }
