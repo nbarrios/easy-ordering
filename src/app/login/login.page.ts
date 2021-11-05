@@ -23,6 +23,7 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('Init');
   }
 
   login(){
@@ -70,11 +71,27 @@ export class LoginPage implements OnInit {
   }
 
   loginWithGoogle() {
-    this.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+    this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+      .then(res => {
+        if (res.user) {
+          if(res.user.uid){
+            const userData = new FirebaseUserData(res.user.email);
+            userData.uid = res.user.uid;
+            this.fireService.getDetails(userData).subscribe(() => {
+              console.log(res);
+              this.router.navigateByUrl('/');
+            },err=>{
+              console.log(err);
+            });
+          }
+        }
+      }, err => {
+        console.log(err);
+      });
   }
 
   loginWithFacebook() {
-    alert("Testing Facebook Button");
+    alert('Testing Facebook Button');
     // Does NOT work yet
     //this.auth.signInWithRedirect(new firebase.auth.FacebookAuthProvider());
   }
