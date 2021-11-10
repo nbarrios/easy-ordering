@@ -40,8 +40,23 @@ export class LoginPage implements OnInit {
         });
       }
     },err=>{
-      alert(err.message);
-      console.log(err);
+      var errCode = err.code;
+      var errMessage = err.message;
+      if(errCode == 'auth/wrong-password') {
+        alert('Invalid password');
+      }
+      else if (errCode == 'auth/invalid-email') {
+        alert('Invalid email.');
+      }
+      else if (errCode == 'auth/user-not-found') {
+        alert('Account is not found.');
+      }
+      else if (errCode == 'auth/user-disabled') {
+        alert('Account is disabled or does not exist');
+      }
+      else {
+        alert(errMessage)
+      }
     });
   }
 
@@ -59,14 +74,30 @@ export class LoginPage implements OnInit {
         userData.uid = res.user.uid;
         this.fireService.saveDetails(userData).then(() => {
           console.log('Account created: ' + res.user.uid);
+          alert('Account successfully created.')
           this.router.navigateByUrl('/');
         },err=>{
           console.log(err);
         });
       }
     },err=>{
-      alert(err.message);
-      console.log(err);
+      var errCode = err.code;
+      var errMessage = err.message;
+      if(errCode == 'auth/email-already-in-use') {
+        alert('Email is already in use by another account.');
+      }
+      else if (errCode == 'auth/invalid-email') {
+        alert('Invalid email.');
+      }
+      else if (errCode == 'auth/operation-not-allowed') {
+        alert('Email and password accounts are not enabled.');
+      }
+      else if (errCode == 'auth/weak-password') {
+        alert('Password is weak. Please retry.');
+      }
+      else {
+        alert(errMessage)
+      }
     });
   }
 
@@ -88,10 +119,35 @@ export class LoginPage implements OnInit {
         }
       }, err => {
         console.log(err);
-        var errorCode = err.code;
-        var errorMessage = err.message;
-        var email = err.email;
-        var credential = err.credential;
+        var errCode = err.code;
+        var errMessage = err.message;
+        if(errCode == 'auth/account-exists-with-different-credential') {
+          alert('Account exists with this email.');
+        }
+        else if (errCode == 'auth/auth-domain-config-required') {
+          alert('Domain error.');
+        }
+        else if (errCode == 'auth/cancelled-popup-request') {
+          alert('Only one popup at a time.');
+        }
+        else if (errCode == 'auth/operation-not-allowed') {
+          alert('Email and password accounts are not enabled.');
+        }
+        else if (errCode == 'auth/operation-not-supported-in-this-environment') {
+          alert('Application is not supported in this environment.');
+        }
+        else if (errCode == 'auth/popup-blocked') {
+          alert('Popup is blocked by the browser. Please try again.');
+        }
+        else if (errCode == 'auth/popup-closed-by-user') {
+          alert('Popup is closed without signing in.');
+        }
+        else if (errCode == 'auth/unauthorized-domain') {
+          alert('Unauthorized domain.');
+        }
+        else {
+          alert(errMessage)
+        }
       });
   }
 
@@ -112,10 +168,35 @@ export class LoginPage implements OnInit {
         }
       }, err => {
         console.log(err);
-        var errorCode = err.code;
-        var errorMessage = err.message;
-        var email = err.email;
-        var credential = err.credential;
+        var errCode = err.code;
+        var errMessage = err.message;
+        if(errCode == 'auth/account-exists-with-different-credential') {
+          alert('Account exists with this email.');
+        }
+        else if (errCode == 'auth/auth-domain-config-required') {
+          alert('Domain error.');
+        }
+        else if (errCode == 'auth/cancelled-popup-request') {
+          alert('Only one popup at a time.');
+        }
+        else if (errCode == 'auth/operation-not-allowed') {
+          alert('Email and password accounts are not enabled.');
+        }
+        else if (errCode == 'auth/operation-not-supported-in-this-environment') {
+          alert('Application is not supported in this environment.');
+        }
+        else if (errCode == 'auth/popup-blocked') {
+          alert('Popup is blocked by the browser. Please try again.');
+        }
+        else if (errCode == 'auth/popup-closed-by-user') {
+          alert('Popup is closed without signing in.');
+        }
+        else if (errCode == 'auth/unauthorized-domain') {
+          alert('Unauthorized domain.');
+        }
+        else {
+          alert(errMessage)
+        }
       });
   }
 }

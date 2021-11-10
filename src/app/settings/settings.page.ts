@@ -8,11 +8,19 @@ import { FirebaseService } from '../firebase.service';
   styleUrls: ['settings.page.scss']
 })
 export class SettingsPage {
+  public name: string;
+  public gender: any;
+  public phone: string;
+  public email: string;
 
   constructor(
     public fireservice: FirebaseService,
     public router: Router
   ) {}
+
+  updateInfo() {
+    alert('Work in progress.');
+  }
 
   logout() {
     this.fireservice.auth.signOut().then(() => {
