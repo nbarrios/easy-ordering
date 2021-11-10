@@ -88,12 +88,34 @@ export class LoginPage implements OnInit {
         }
       }, err => {
         console.log(err);
+        var errorCode = err.code;
+        var errorMessage = err.message;
+        var email = err.email;
+        var credential = err.credential;
       });
   }
 
   loginWithFacebook() {
-    alert('Testing Facebook Button');
-    // Does NOT work yet
-    //this.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
+    this.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
+      .then(res => {
+        if (res.user) {
+          if(res.user.uid){
+            const userData = new FirebaseUserData(res.user.email);
+            userData.uid = res.user.uid;
+            this.fireService.getDetails(userData).subscribe(() => {
+              console.log(res);
+              this.router.navigateByUrl('/');
+            },err=>{
+              console.log(err);
+            });
+          }
+        }
+      }, err => {
+        console.log(err);
+        var errorCode = err.code;
+        var errorMessage = err.message;
+        var email = err.email;
+        var credential = err.credential;
+      });
   }
 }
