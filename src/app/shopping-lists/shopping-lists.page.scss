@@ -1,0 +1,16 @@
+ion-fab-button {
+    --border-radius: 30px;
+    width: 140px;
+  }
+  
+  .fab-horizontal-center {
+    margin-left: unset;
+    margin-inline-start: -70px !important;
+  }
+  
+  .trashBTN {
+    opacity: 1;
+    background-color: white;
+    color: black;
+    margin-right: 16px;
+  }

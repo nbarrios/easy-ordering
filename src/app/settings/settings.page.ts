@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirebaseService } from '../firebase.service';
 
+// To save / update data in the account settings page
+import { doc, setDoc } from 'firebase/firestore';
+
 @Component({
   selector: 'app-settings',
   templateUrl: 'settings.page.html',
