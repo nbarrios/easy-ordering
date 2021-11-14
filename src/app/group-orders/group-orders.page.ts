@@ -31,7 +31,7 @@ export class GroupOrdersPage implements OnInit {
   }
 
   startNewOrder() {
-    this.router.navigateByUrl('/neworder');
+    this.router.navigateByUrl('/new-order');
   }
 
   ngOnInit(){

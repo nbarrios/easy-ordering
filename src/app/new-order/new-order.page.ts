@@ -11,7 +11,7 @@ export class NewOrderPage implements OnInit {
   sendPaymentInfo = false;
 
   constructor(
-    public router : Router
+    public router: Router
   ) { }
 
   ngOnInit() {
