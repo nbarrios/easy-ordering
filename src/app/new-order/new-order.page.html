@@ -9,71 +9,113 @@
 
 <ion-content>
   <form [formGroup]="newOrderForm" (ngSubmit)="onSubmit()">
-    <ion-item>
-      <ion-input formControlName="restaurantName" placeholder="Where are you ordering from?"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Detailed Restaurant Info</ion-label>
-      <ion-toggle formControlName="detailedRestaurantInfo"></ion-toggle>
-    </ion-item>
-    <ion-item-group *ngIf="newOrderForm.value.detailedRestaurantInfo">
-      <ion-item-divider><ion-label>Restaurant Info</ion-label></ion-item-divider>
-      <ion-item>
-        <ion-input formControlName="restaurantAddress" placeholder="Address"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input formControlName="restaurantWebsite" placeholder="Website"></ion-input>
-      </ion-item>
-    </ion-item-group>
-    <ion-item>
-      <ion-textarea formControlName="groupMessage" placeholder="Group Message" rows="10"></ion-textarea>
-    </ion-item>
-    <ion-item>
-      <ion-label>Send Payment Info</ion-label>
-      <ion-toggle formControlName="sendPaymentInfo"></ion-toggle>
-    </ion-item>
-    <ion-item-group *ngIf="newOrderForm.value.sendPaymentInfo">
-      <ion-item-divider><ion-label>Payment Info</ion-label></ion-item-divider>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked" color="danger"
+              *ngIf="submitted && newOrderForm.controls.restaurantName.errors?.required">A restaurant name is required.
+            </ion-label>
+            <ion-input formControlName="restaurantName" placeholder="Where are you ordering from?"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Detailed Restaurant Info</ion-label>
+            <ion-toggle formControlName="detailedRestaurantInfo"></ion-toggle>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item-group *ngIf="newOrderForm.value.detailedRestaurantInfo">
+            <ion-item-divider>
+              <ion-label>Restaurant Info</ion-label>
+            </ion-item-divider>
             <ion-item>
-              <ion-label>Paypal</ion-label>
-              <ion-toggle formControlName="paymentInfoPaypalToggle"></ion-toggle>
+              <ion-input formControlName="restaurantAddress" placeholder="Address"></ion-input>
             </ion-item>
-          </ion-col>
-          <ion-col>
             <ion-item>
-              <ion-label>Venmo</ion-label>
-              <ion-toggle formControlName="paymentInfoVenmoToggle"></ion-toggle>
+              <ion-input formControlName="restaurantWebsite" placeholder="Website"></ion-input>
             </ion-item>
-          </ion-col>
-          <ion-col>
-            <ion-item>
-              <ion-label>Cash App</ion-label>
-              <ion-toggle formControlName="paymentInfoCashToggle"></ion-toggle>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-item *ngIf="newOrderForm.value.paymentInfoPaypalToggle">
-              <ion-input formControlName="paymentInfoPaypal" placeholder="Paypal email"></ion-input>
-            </ion-item>
-            <ion-item *ngIf="newOrderForm.value.paymentInfoVenmoToggle">
-              <ion-input formControlName="paymentInfoVenmo" placeholder="Venmo email/username"></ion-input>
-            </ion-item>
-            <ion-item *ngIf="newOrderForm.value.paymentInfoCashToggle">
-              <ion-input formControlName="paymentInfoCash" placeholder="$Cashtag"></ion-input>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item-group>
-    <ion-item>
-      <ion-label>Pick-up Time</ion-label>
-      <ion-datetime formControlName="pickupTime" displayFormat="hh:mm a" placeholder="Select a time"></ion-datetime>
-    </ion-item>
-    <ion-button type="submit" expand="block">Create Order</ion-button>
+          </ion-item-group>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-textarea formControlName="groupMessage" placeholder="Group Message" rows="10"></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Send Payment Info</ion-label>
+            <ion-toggle formControlName="sendPaymentInfo"></ion-toggle>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item-group *ngIf="newOrderForm.value.sendPaymentInfo">
+            <ion-item-divider>
+              <ion-label>Payment Info</ion-label>
+            </ion-item-divider>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label>Paypal</ion-label>
+                    <ion-toggle formControlName="paymentInfoPaypalToggle"></ion-toggle>
+                  </ion-item>
+                </ion-col>
+                <ion-col>
+                  <ion-item>
+                    <ion-label>Venmo</ion-label>
+                    <ion-toggle formControlName="paymentInfoVenmoToggle"></ion-toggle>
+                  </ion-item>
+                </ion-col>
+                <ion-col>
+                  <ion-item>
+                    <ion-label>Cash App</ion-label>
+                    <ion-toggle formControlName="paymentInfoCashToggle"></ion-toggle>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-item *ngIf="newOrderForm.value.paymentInfoPaypalToggle">
+                    <ion-input formControlName="paymentInfoPaypal" placeholder="Paypal email"></ion-input>
+                  </ion-item>
+                  <ion-item *ngIf="newOrderForm.value.paymentInfoVenmoToggle">
+                    <ion-input formControlName="paymentInfoVenmo" placeholder="Venmo email/username"></ion-input>
+                  </ion-item>
+                  <ion-item *ngIf="newOrderForm.value.paymentInfoCashToggle">
+                    <ion-input formControlName="paymentInfoCash" placeholder="$Cashtag"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item-group>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Pick-up Time</ion-label>
+            <ion-datetime formControlName="pickupTime" displayFormat="hh:mm a" placeholder="Select a time"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <ion-text *ngIf="submissionError" color="danger">Unable to create order. Please try again.</ion-text>
+          <ion-button type="submit" expand="block">Create Order</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </form>
 </ion-content>
