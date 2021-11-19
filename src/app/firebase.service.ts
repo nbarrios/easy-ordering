@@ -7,6 +7,10 @@ export class FirebaseUserData {
   uid: string;
   email: string;
   password: string;
+  name: string;
+  phone: string;
+  gender: string;
+  profileImage: string;
 
   constructor(email: string, password: string = '') {
     this.email = email;
@@ -90,7 +94,11 @@ export class FirebaseService {
     //Unpack FirebaseUserData into plain object
     return this.firestore.collection('users').doc(data.uid).set({
       uid: data.uid,
-      email: data.email
+      email: data.email,
+      name: data.name,
+      phone: data.phone,
+      gender: data.gender,
+      profileImage: data.profileImage
     });
   }
 
