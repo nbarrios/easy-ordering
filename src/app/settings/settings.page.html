@@ -21,14 +21,14 @@
       <ion-col>
         <ion-item>
           <ion-label position="stacked">Name</ion-label>
-          <ion-input [(ngModel)]='name'></ion-input>
+          <ion-input [(ngModel)]='userData.name'></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
         <ion-list>
-          <ion-radio-group>
+          <ion-radio-group [(ngModel)]='userData.gender'>
             <ion-list-header>
               <ion-label>Gender</ion-label>
             </ion-list-header>
@@ -55,7 +55,7 @@
       <ion-col>
         <ion-item>
           <ion-label position="stacked">Phone</ion-label>
-          <ion-input [(ngModel)]='phone'></ion-input>
+          <ion-input [(ngModel)]='userData.phone'></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -63,7 +63,7 @@
       <ion-col>
         <ion-item>
           <ion-label position="stacked">Email</ion-label>
-          <ion-input [(ngModel)]='email'></ion-input>
+          <ion-input [(ngModel)]='userData.email'></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>

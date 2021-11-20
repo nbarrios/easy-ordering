@@ -1,7 +1,7 @@
-import { Component, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FirebaseService } from '../firebase.service';
+import { FirebaseService, FirebaseUserData } from '../firebase.service';
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -9,13 +9,9 @@ import { AlertController } from '@ionic/angular';
   templateUrl: 'settings.page.html',
   styleUrls: ['settings.page.scss']
 })
-export class SettingsPage {
-  name: string;
-  gender: any;
-  phone: string;
-  email: string;
+export class SettingsPage implements OnInit {
+  userData: FirebaseUserData;
   profileImage = null;
-  owner: string;
 
   constructor(
     public fireservice: FirebaseService,
@@ -24,18 +20,27 @@ export class SettingsPage {
     public alertCtrl: AlertController
   ) {}
 
+  ngOnInit() {
+    this.userData = new FirebaseUserData();
+    this.fireservice.getDetails().subscribe(val => {
+      if (val !== undefined) {
+        this.userData = val;
+      }
+    });
+  }
+
   //Changes Profile Picture
   changePicture(event) {
     if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
+      const reader = new FileReader();
 
       // read file as data url
       reader.readAsDataURL(event.target.files[0]);
 
-      reader.onload = (event) => { 
+      reader.onload = (ev) => {
         // called once readAsDataURL is completed
         this.profileImage = event.target.result;
-      }
+      };
     }
   }
 
@@ -63,7 +68,9 @@ export class SettingsPage {
 
   //Updates Information
   updateInfo() {
-    alert('Work in progress.');
+    this.fireservice.saveDetails(this.userData).then(() => {
+      console.log('Saved user details');
+    });
   }
 
   changePassword() {
