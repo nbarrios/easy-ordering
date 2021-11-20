@@ -27,12 +27,12 @@ export class LoginPage implements OnInit {
   }
 
   login(){
-    const userData = new FirebaseUserData(this.email);
+    const userData = new FirebaseUserData();
     this.fireService.loginWithAccount(this.email, this.password).then(res=>{
       console.log(res);
       if(res.user.uid){
         userData.uid = res.user.uid;
-        this.fireService.getDetails(userData).subscribe(() => {
+        this.fireService.getDetails().subscribe(() => {
           console.log(res);
           this.router.navigateByUrl('/');
         },err=>{
@@ -67,7 +67,7 @@ export class LoginPage implements OnInit {
       return;
     }
 
-    const userData = new FirebaseUserData(this.email);
+    const userData = new FirebaseUserData();
     this.fireService.signup(this.email, this.password)
     .then(res=>{
       if(res.user.uid){
@@ -107,9 +107,9 @@ export class LoginPage implements OnInit {
       .then(res => {
         if (res.user) {
           if(res.user.uid){
-            const userData = new FirebaseUserData(res.user.email);
+            const userData = new FirebaseUserData();
             userData.uid = res.user.uid;
-            this.fireService.getDetails(userData).subscribe(() => {
+            this.fireService.getDetails().subscribe(() => {
               console.log(res);
               this.router.navigateByUrl('/');
             },err=>{
@@ -156,9 +156,9 @@ export class LoginPage implements OnInit {
       .then(res => {
         if (res.user) {
           if(res.user.uid){
-            const userData = new FirebaseUserData(res.user.email);
+            const userData = new FirebaseUserData();
             userData.uid = res.user.uid;
-            this.fireService.getDetails(userData).subscribe(() => {
+            this.fireService.getDetails().subscribe(() => {
               console.log(res);
               this.router.navigateByUrl('/');
             },err=>{
