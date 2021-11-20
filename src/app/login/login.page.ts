@@ -206,8 +206,5 @@ export class LoginPage implements OnInit {
 
   forgotPassword() {
     alert('Working on it.');
-
-    // Direct to Forgot Password page
-    this.router.navigateByUrl('/forgot-password');
   }
 }
