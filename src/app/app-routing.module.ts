@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: 'placeorder',
     loadChildren: () => import('./place-order/place-order.module').then( m => m.PlaceOrderPageModule)
+  },
+  {
+    path: 'forgot-password',
+    loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
   }
 
 ];

@@ -43,6 +43,9 @@ export class SettingsPage implements OnInit {
         // called once readAsDataURL is completed
         this.profileImage = event.target.result;
       };
+
+      // Updates picture to Firebase
+      this.updateInfo();
     }
   }
 
