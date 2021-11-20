@@ -69,7 +69,8 @@ export class SettingsPage implements OnInit {
   //Updates Information
   updateInfo() {
     this.fireservice.saveDetails(this.userData).then(() => {
-      console.log('Saved user details');
+      console.log('Saved user details.');
+      alert('Account information successfully updated.');
     });
   }
 
