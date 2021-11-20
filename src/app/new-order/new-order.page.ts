@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { EOOrder } from '../group-orders/models/EOOrder';
+import { FirebaseService } from '../firebase.service';
 
 export interface Order {
     restaurantName: string;
@@ -27,12 +27,11 @@ export class NewOrderPage implements OnInit {
   newOrderForm: FormGroup;
   submitted = false;
   submissionError = false;
-  user: firebase.default.User = null;
 
   constructor(
     public router: Router,
     public formBuilder: FormBuilder,
-    public auth: AngularFireAuth,
+    public fireservice: FirebaseService,
     public firestore: AngularFirestore
   ) { }
 
@@ -52,9 +51,6 @@ export class NewOrderPage implements OnInit {
       paymentInfoCashToggle: [false],
       pickupTime: [Date.now()]
     });
-    this.auth.user.subscribe((value: firebase.default.User) => {
-      this.user = value;
-    });
   }
 
   onPaymentToggle($event) {
@@ -65,7 +61,7 @@ export class NewOrderPage implements OnInit {
     this.submitted = true;
     this.submissionError = false;
 
-    if (this.newOrderForm.valid && this.user) {
+    if (this.newOrderForm.valid && this.fireservice.getUserID()) {
       const values = this.newOrderForm.value;
       const orders = this.firestore.collection<EOOrder>('orders');
       orders.add({
@@ -77,7 +73,7 @@ export class NewOrderPage implements OnInit {
         paymentInfoVenmo: values.paymentInfoVenmo,
         paymentInfoCash: values.paymentInfoCash,
         pickupTime: values.pickupTime,
-        owner: this.user.uid,
+        owner: this.fireservice.getUserID(),
         users: new Array<string>()
       }).then(val => {
         this.router.navigateByUrl('/tabs/group-orders');

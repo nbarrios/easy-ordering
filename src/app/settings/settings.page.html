@@ -10,21 +10,25 @@
   <ion-grid>
     <ion-row>
       <ion-col class="profile-icon ion-text-center">
-        <ion-icon name="person-circle-outline"></ion-icon>
+        <ion-label class="image-container">
+          <img [src]="url ? url : 'https://seekicon.com/free-icon-download/person-circle-outline_1.svg'" class=""> 
+          <input type='file' (change)='changePicture($event)' class="select-profile-picture">
+        </ion-label>
+        <ion-button *ngIf="url" (click)='delete()' id="deleteBTN" color="white">Delete Image</ion-button>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
         <ion-item>
           <ion-label position="stacked">Name</ion-label>
-          <ion-input [(ngModel)]='name'></ion-input>
+          <ion-input [(ngModel)]='userData.name'></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
         <ion-list>
-          <ion-radio-group>
+          <ion-radio-group [(ngModel)]='userData.gender'>
             <ion-list-header>
               <ion-label>Gender</ion-label>
             </ion-list-header>
@@ -51,7 +55,7 @@
       <ion-col>
         <ion-item>
           <ion-label position="stacked">Phone</ion-label>
-          <ion-input [(ngModel)]='phone'></ion-input>
+          <ion-input [(ngModel)]='userData.phone'></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -59,7 +63,7 @@
       <ion-col>
         <ion-item>
           <ion-label position="stacked">Email</ion-label>
-          <ion-input [(ngModel)]='email'></ion-input>
+          <ion-input [(ngModel)]='userData.email'></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -67,7 +71,7 @@
       <ion-col>
         <ion-item>
           <ion-label>Change Password</ion-label>
-          <ion-button fill="outline"><ion-icon name="caret-forward"></ion-icon></ion-button>
+          <ion-button fill="outline" (click)='changePassword()'><ion-icon name="caret-forward"></ion-icon></ion-button>
         </ion-item>
         <br>
       </ion-col>

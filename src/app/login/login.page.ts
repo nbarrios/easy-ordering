@@ -27,12 +27,12 @@ export class LoginPage implements OnInit {
   }
 
   login(){
-    const userData = new FirebaseUserData(this.email, this.password);
-    this.fireService.loginWithAccount(userData).then(res=>{
+    const userData = new FirebaseUserData();
+    this.fireService.loginWithAccount(this.email, this.password).then(res=>{
       console.log(res);
       if(res.user.uid){
         userData.uid = res.user.uid;
-        this.fireService.getDetails(userData).subscribe(() => {
+        this.fireService.getDetails().subscribe(() => {
           console.log(res);
           this.router.navigateByUrl('/');
         },err=>{
@@ -40,22 +40,22 @@ export class LoginPage implements OnInit {
         });
       }
     },err=>{
-      var errCode = err.code;
-      var errMessage = err.message;
-      if(errCode == 'auth/wrong-password') {
+      const errCode = err.code;
+      const errMessage = err.message;
+      if(errCode === 'auth/wrong-password') {
         alert('Invalid password');
       }
-      else if (errCode == 'auth/invalid-email') {
+      else if (errCode === 'auth/invalid-email') {
         alert('Invalid email.');
       }
-      else if (errCode == 'auth/user-not-found') {
+      else if (errCode === 'auth/user-not-found') {
         alert('Account is not found.');
       }
-      else if (errCode == 'auth/user-disabled') {
+      else if (errCode === 'auth/user-disabled') {
         alert('Account is disabled or does not exist');
       }
       else {
-        alert(errMessage)
+        alert(errMessage);
       }
     });
   }
@@ -67,49 +67,49 @@ export class LoginPage implements OnInit {
       return;
     }
 
-    const userData = new FirebaseUserData(this.email, this.password);
-    this.fireService.signup(userData)
+    const userData = new FirebaseUserData();
+    this.fireService.signup(this.email, this.password)
     .then(res=>{
       if(res.user.uid){
         userData.uid = res.user.uid;
         this.fireService.saveDetails(userData).then(() => {
           console.log('Account created: ' + res.user.uid);
-          alert('Account successfully created.')
+          alert('Account successfully created.');
           this.router.navigateByUrl('/');
         },err=>{
           console.log(err);
         });
       }
     },err=>{
-      var errCode = err.code;
-      var errMessage = err.message;
-      if(errCode == 'auth/email-already-in-use') {
+      const errCode = err.code;
+      const errMessage = err.message;
+      if(errCode === 'auth/email-already-in-use') {
         alert('Email is already in use by another account.');
       }
-      else if (errCode == 'auth/invalid-email') {
+      else if (errCode === 'auth/invalid-email') {
         alert('Invalid email.');
       }
-      else if (errCode == 'auth/operation-not-allowed') {
+      else if (errCode === 'auth/operation-not-allowed') {
         alert('Email and password accounts are not enabled.');
       }
-      else if (errCode == 'auth/weak-password') {
+      else if (errCode === 'auth/weak-password') {
         alert('Password is weak. Please retry.');
       }
       else {
-        alert(errMessage)
+        alert(errMessage);
       }
     });
   }
 
   loginWithGoogle() {
     //Need to use signInWithPopup to be directed into the app correctly
-    this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    this.fireService.loginWithGoogle()
       .then(res => {
         if (res.user) {
           if(res.user.uid){
-            const userData = new FirebaseUserData(res.user.email);
+            const userData = new FirebaseUserData();
             userData.uid = res.user.uid;
-            this.fireService.getDetails(userData).subscribe(() => {
+            this.fireService.getDetails().subscribe(() => {
               console.log(res);
               this.router.navigateByUrl('/');
             },err=>{
@@ -119,46 +119,46 @@ export class LoginPage implements OnInit {
         }
       }, err => {
         console.log(err);
-        var errCode = err.code;
-        var errMessage = err.message;
-        if(errCode == 'auth/account-exists-with-different-credential') {
+        const errCode = err.code;
+        const errMessage = err.message;
+        if(errCode === 'auth/account-exists-with-different-credential') {
           alert('Account exists with this email.');
         }
-        else if (errCode == 'auth/auth-domain-config-required') {
+        else if (errCode === 'auth/auth-domain-config-required') {
           alert('Domain error.');
         }
-        else if (errCode == 'auth/cancelled-popup-request') {
+        else if (errCode === 'auth/cancelled-popup-request') {
           alert('Only one popup at a time.');
         }
-        else if (errCode == 'auth/operation-not-allowed') {
+        else if (errCode === 'auth/operation-not-allowed') {
           alert('Email and password accounts are not enabled.');
         }
-        else if (errCode == 'auth/operation-not-supported-in-this-environment') {
+        else if (errCode === 'auth/operation-not-supported-in-this-environment') {
           alert('Application is not supported in this environment.');
         }
-        else if (errCode == 'auth/popup-blocked') {
+        else if (errCode === 'auth/popup-blocked') {
           alert('Popup is blocked by the browser. Please try again.');
         }
-        else if (errCode == 'auth/popup-closed-by-user') {
+        else if (errCode === 'auth/popup-closed-by-user') {
           alert('Popup is closed without signing in.');
         }
-        else if (errCode == 'auth/unauthorized-domain') {
+        else if (errCode === 'auth/unauthorized-domain') {
           alert('Unauthorized domain.');
         }
         else {
-          alert(errMessage)
+          alert(errMessage);
         }
       });
   }
 
   loginWithFacebook() {
-    this.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
+    this.fireService.loginWithFacebook()
       .then(res => {
         if (res.user) {
           if(res.user.uid){
-            const userData = new FirebaseUserData(res.user.email);
+            const userData = new FirebaseUserData();
             userData.uid = res.user.uid;
-            this.fireService.getDetails(userData).subscribe(() => {
+            this.fireService.getDetails().subscribe(() => {
               console.log(res);
               this.router.navigateByUrl('/');
             },err=>{
@@ -168,34 +168,34 @@ export class LoginPage implements OnInit {
         }
       }, err => {
         console.log(err);
-        var errCode = err.code;
-        var errMessage = err.message;
-        if(errCode == 'auth/account-exists-with-different-credential') {
+        const errCode = err.code;
+        const errMessage = err.message;
+        if(errCode === 'auth/account-exists-with-different-credential') {
           alert('Account exists with this email.');
         }
-        else if (errCode == 'auth/auth-domain-config-required') {
+        else if (errCode === 'auth/auth-domain-config-required') {
           alert('Domain error.');
         }
-        else if (errCode == 'auth/cancelled-popup-request') {
+        else if (errCode === 'auth/cancelled-popup-request') {
           alert('Only one popup at a time.');
         }
-        else if (errCode == 'auth/operation-not-allowed') {
+        else if (errCode === 'auth/operation-not-allowed') {
           alert('Email and password accounts are not enabled.');
         }
-        else if (errCode == 'auth/operation-not-supported-in-this-environment') {
+        else if (errCode === 'auth/operation-not-supported-in-this-environment') {
           alert('Application is not supported in this environment.');
         }
-        else if (errCode == 'auth/popup-blocked') {
+        else if (errCode === 'auth/popup-blocked') {
           alert('Popup is blocked by the browser. Please try again.');
         }
-        else if (errCode == 'auth/popup-closed-by-user') {
+        else if (errCode === 'auth/popup-closed-by-user') {
           alert('Popup is closed without signing in.');
         }
-        else if (errCode == 'auth/unauthorized-domain') {
+        else if (errCode === 'auth/unauthorized-domain') {
           alert('Unauthorized domain.');
         }
         else {
-          alert(errMessage)
+          alert(errMessage);
         }
       });
   }
