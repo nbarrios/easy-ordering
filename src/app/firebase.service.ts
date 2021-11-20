@@ -11,11 +11,6 @@ export class FirebaseUserData {
   gender: string;
   phone: string;
   profileImage: string;
-
-  constructor(email: string) {
-    this.email = email;
-    this.uid = '';
-  }
 }
 
 @Injectable({
@@ -29,6 +24,7 @@ export class FirebaseService {
     public auth: AngularFireAuth
   ) {
     this.auth.user.subscribe(val => {
+      console.log('Received user');
       this.user = val;
     });
   }
@@ -90,18 +86,11 @@ export class FirebaseService {
   }
 
   saveDetails(data: FirebaseUserData) {
-    //Unpack FirebaseUserData into plain object
-    return this.firestore.collection('users').doc(data.uid).set({
-      uid: data.uid,
-      email: data.email,
-      name: data.name,
-      phone: data.phone,
-      gender: data.gender,
-      profileImage: data.profileImage
-    });
+    //This doesn't work for nested objects. Do not nest user data fields.
+    return this.firestore.collection<FirebaseUserData>('users').doc(this.user.uid).set(Object.assign({}, data));
   }
 
-  getDetails(data: FirebaseUserData) {
-    return this.firestore.collection('users').doc(data.uid).valueChanges();
+  getDetails() {
+    return this.firestore.collection<FirebaseUserData>('users').doc(this.user.uid).valueChanges();
   }
 }
