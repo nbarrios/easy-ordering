@@ -27,8 +27,8 @@ export class LoginPage implements OnInit {
   }
 
   login(){
-    const userData = new FirebaseUserData(this.email, this.password);
-    this.fireService.loginWithAccount(userData).then(res=>{
+    const userData = new FirebaseUserData(this.email);
+    this.fireService.loginWithAccount(this.email, this.password).then(res=>{
       console.log(res);
       if(res.user.uid){
         userData.uid = res.user.uid;
@@ -67,8 +67,8 @@ export class LoginPage implements OnInit {
       return;
     }
 
-    const userData = new FirebaseUserData(this.email, this.password);
-    this.fireService.signup(userData)
+    const userData = new FirebaseUserData(this.email);
+    this.fireService.signup(this.email, this.password)
     .then(res=>{
       if(res.user.uid){
         userData.uid = res.user.uid;

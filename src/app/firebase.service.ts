@@ -6,11 +6,14 @@ import firebase from 'firebase/compat/app';
 export class FirebaseUserData {
   uid: string;
   email: string;
-  password: string;
 
-  constructor(email: string, password: string = '') {
+  name: string;
+  gender: string;
+  phone: string;
+  profileImage: string;
+
+  constructor(email: string) {
     this.email = email;
-    this.password = password;
     this.uid = '';
   }
 }
@@ -38,9 +41,9 @@ export class FirebaseService {
     }
   }
 
-  loginWithAccount(data: FirebaseUserData) {
+  loginWithAccount(email: string, password: string) {
     return new Promise<firebase.auth.UserCredential>((resolve, reject) => {
-      this.auth.signInWithEmailAndPassword(data.email, data.password)
+      this.auth.signInWithEmailAndPassword(email, password)
         .then(credential => {
           this.user = credential.user;
           resolve(credential);
@@ -74,9 +77,9 @@ export class FirebaseService {
     });
   }
 
-  signup(data: FirebaseUserData) {
+  signup(email: string, password: string) {
     return new Promise<firebase.auth.UserCredential>((resolve, reject) => {
-      this.auth.createUserWithEmailAndPassword(data.email, data.password)
+      this.auth.createUserWithEmailAndPassword(email, password)
         .then(credential => {
           this.user = credential.user;
           resolve(credential);
