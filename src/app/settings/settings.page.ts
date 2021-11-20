@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FirebaseService } from '../firebase.service';
-
-// To save / update data in the account settings page
-import { doc, setDoc } from 'firebase/firestore';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-settings',
@@ -11,18 +10,64 @@ import { doc, setDoc } from 'firebase/firestore';
   styleUrls: ['settings.page.scss']
 })
 export class SettingsPage {
-  public name: string;
-  public gender: any;
-  public phone: string;
-  public email: string;
+  name: string;
+  gender: any;
+  phone: string;
+  email: string;
+  profileImage = null;
+  owner: string;
 
   constructor(
     public fireservice: FirebaseService,
-    public router: Router
+    public firestore: AngularFirestore,
+    public router: Router,
+    public alertCtrl: AlertController
   ) {}
 
+  //Changes Profile Picture
+  changePicture(event) {
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      // read file as data url
+      reader.readAsDataURL(event.target.files[0]);
+
+      reader.onload = (event) => { 
+        // called once readAsDataURL is completed
+        this.profileImage = event.target.result;
+      }
+    }
+  }
+
+  // Deletes image and return to the default icon
+  async delete() {
+    // Ask for confirmation to delete
+    const alert = (await this.alertCtrl
+      .create({
+        header: 'Delete Picture?',
+        buttons: [
+          {
+            text: 'No',
+            role: 'cancel'
+          },
+          {
+            text: 'Yes',
+            handler: () => {
+              this.profileImage = null;
+            }
+          }
+        ]
+      }))
+    .present();
+  }
+
+  //Updates Information
   updateInfo() {
     alert('Work in progress.');
+  }
+
+  changePassword() {
+    alert('Working on it.');
   }
 
   logout() {
