@@ -65,10 +65,9 @@ export class ViewOrderPage implements OnInit {
     // Copies list to input
     let listToString = '';
     for(let i = 0; i < this.userOrder.pickupList.length; i++){
-      console.log(i + ' ' + this.userOrder.pickupList[i]);
       listToString = listToString + this.userOrder.pickupList[i] + '\n';
     }
-    console.log(listToString);
+    
     this.userInput.value = listToString;
     this.hideInputOrder = false;
     this.userPickupList.closeOpened();

@@ -23,7 +23,6 @@ const routes: Routes = [
     path: 'placeorder',
     loadChildren: () => import('./place-order/place-order.module').then( m => m.PlaceOrderPageModule)
   }
-
 ];
 @NgModule({
   imports: [

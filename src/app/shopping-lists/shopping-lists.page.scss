@@ -1,16 +1,45 @@
+ion-item{
+  border-radius: 7px;
+  border: 1px solid #5d5d5d;
+  min-width: 100% !important;
+  max-width: 100% !important;
+}
+
+
+
+.custom-button{
+  border-radius: 5px;
+  border: 1px solid #5d5d5d;
+  --box-shadow:none;
+  --background: transparent;
+  font-size: 16px;
+  height: auto;
+}
+
+.edit-button{
+  --background-hover: transparent;
+  --box-shadow:none;
+  --background: transparent;
+}
+
+span.ion-text-left {
+  margin-right: auto;
+  text-transform: capitalize;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+span.button-inner{
+  margin-right: 0px;
+}
+
 ion-fab-button {
-    --border-radius: 30px;
-    width: 140px;
-  }
-  
-  .fab-horizontal-center {
-    margin-left: unset;
-    margin-inline-start: -70px !important;
-  }
-  
-  .trashBTN {
-    opacity: 1;
-    background-color: white;
-    color: black;
-    margin-right: 16px;
-  }
+  --border-radius: 7px;
+  width: calc(100vw - 50px);
+  margin-left: 16px
+}
+
+
+
+
+

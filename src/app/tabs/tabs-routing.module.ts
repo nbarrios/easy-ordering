@@ -19,6 +19,10 @@ const routes: Routes = [
         path: 'shopping-lists',
         loadChildren: () => import('../shopping-lists/shopping-lists.module').then(m => m.ShoppingListsPageModule)
       },
+      /*{
+        path: 'shopping-lists',
+        loadChildren: () => import('../shopping-list/view-shopping-list/view-shopping-list.module').then(m => m.ViewShoppingListPageModule)
+      },*/
       {
         path: 'settings',
         loadChildren: () => import('../settings/settings.module').then(m => m.SettingsPageModule)

@@ -138,11 +138,10 @@ export class OrdersProvider {
 
   public getOrder(id: string): Order{
     for(let i = 0; i < this.ordersList.length; i++){
-      console.log("i : " + i + " id is : " + this.ordersList[i].orderId);
+      console.log('i : ' + i + ' id is : ' + this.ordersList[i].orderId);
       if(this.ordersList[i].orderId === id)
         {return this.ordersList[i];}
     }
-    //console.log('returning order '  + id + ' with store' + order[0].storeName);
     return null;
   }
 }
