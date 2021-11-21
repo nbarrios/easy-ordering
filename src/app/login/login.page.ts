@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FirebaseService, FirebaseUserData } from '../firebase.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { confirmPasswordReset, getAuth, sendPasswordResetEmail } from "firebase/auth";
-import firebase from 'firebase/compat/app';
 
 @Component({
   selector: 'app-login',
@@ -205,6 +203,9 @@ export class LoginPage implements OnInit {
   }
 
   forgotPassword() {
-    alert('Working on it.');
+    console.log('Redirecting to forgot password page.');
+
+    // Direct to Forgot Password page
+    this.router.navigateByUrl('/forgot-password');
   }
 }
