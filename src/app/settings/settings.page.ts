@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FirebaseService, FirebaseUserData } from '../firebase.service';
 import { AlertController } from '@ionic/angular';
+import { confirmPasswordReset, getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 @Component({
   selector: 'app-settings',
@@ -29,6 +30,7 @@ export class SettingsPage implements OnInit {
     });
   }
 
+  //NOT working~!!! WHY??
   //Changes Profile Picture
   changePicture(event) {
     if (event.target.files && event.target.files[0]) {
@@ -41,6 +43,9 @@ export class SettingsPage implements OnInit {
         // called once readAsDataURL is completed
         this.profileImage = event.target.result;
       };
+
+      // Updates picture to Firebase
+      this.updateInfo();
     }
   }
 
@@ -69,12 +74,42 @@ export class SettingsPage implements OnInit {
   //Updates Information
   updateInfo() {
     this.fireservice.saveDetails(this.userData).then(() => {
-      console.log('Saved user details');
+      console.log('Saved user details.');
+      alert('Account information successfully updated.');
     });
   }
 
   changePassword() {
-    alert('Working on it.');
+    const auth = getAuth();
+    
+    // Send passwork reset link to email
+    this.fireservice.auth.sendPasswordResetEmail(this.userData.email)
+    .then(() => {
+      // Password reset email sent!
+      console.log('Email to reset was sent.')
+      alert('Password reset link has been sent to your email.');
+    },err=>{
+      const errCode = err.code;
+      const errMessage = err.message;
+      if(errCode === 'auth/missing-email') {
+        alert('Email is missing.');
+      }
+      else if (errCode === 'auth/invalid-email') {
+        alert('Invalid email.');
+      }
+      else if (errCode === 'auth/missing-continue-uri') {
+        alert('Missing continue URL.');
+      }
+      else if (errCode === 'auth/unauthorized-continue-uri') {
+        alert('Unauthorized continue URL.');
+      }
+      else if (errCode === 'auth/user-not-found') {
+        alert('Account is not found.');
+      }
+      else {
+        alert(errMessage);
+      }
+    });
   }
 
   logout() {

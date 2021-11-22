@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FirebaseService, FirebaseUserData } from '../firebase.service';
-import firebase from 'firebase/compat/app';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-login',
@@ -15,10 +15,12 @@ export class LoginPage implements OnInit {
   public password: string;
   public confirmPassword: string;
   userAuth = 'login';
+  userData: FirebaseUserData;
 
   constructor(
     public router: Router,
     public fireService: FirebaseService,
+    public firestore: AngularFirestore,
     public auth: AngularFireAuth
   ) { }
 
@@ -198,5 +200,12 @@ export class LoginPage implements OnInit {
           alert(errMessage);
         }
       });
+  }
+
+  forgotPassword() {
+    console.log('Redirecting to forgot password page.');
+
+    // Direct to Forgot Password page
+    this.router.navigateByUrl('/forgot-password');
   }
 }
