@@ -8,6 +8,8 @@ import { ShoppingListsPageRoutingModule } from './shopping-lists-routing.module'
 
 import { ShoppingListsPage } from './shopping-lists.page';
 import { PopoverService } from './popover/popover.service';
+import { PopoverComponent } from './popover/popover.component';
+import { ChangeAccessModalComponent } from './change-access-modal/change-access-modal.component';
 
 @NgModule({
   imports: [
@@ -16,7 +18,7 @@ import { PopoverService } from './popover/popover.service';
     IonicModule,
     ShoppingListsPageRoutingModule
   ],
-  declarations: [ShoppingListsPage],
-  providers: [PopoverService]
+  declarations: [ShoppingListsPage, PopoverComponent, ChangeAccessModalComponent],
+  providers: [PopoverService],
 })
 export class ShoppingListsPageModule {}

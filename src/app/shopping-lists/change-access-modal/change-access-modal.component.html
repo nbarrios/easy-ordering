@@ -1,0 +1,36 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>{{shoppingList.name}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <div *ngIf="shoppingList.access !== disabledlinkSharing">
+    <h4 class="ion-padding-start">Allow anybody with a link to:</h4>
+
+  <ion-list>
+ <!-- Radio buttons not getting checked automatically see link below -->
+    <!-- https://github.com/ionic-team/ionic-framework/pull/19449#selection-controls -->
+      <ion-radio-group [value]="checkedValue">
+        <ion-item>
+          <ion-radio value="view" (click)="setListAccessToView()" slot="start"></ion-radio>
+          <ion-label>View</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-radio value="viewAndEdit" (click)="setListAccessToViewAndEdit()" slot="start"></ion-radio>
+        <ion-label>View and edit</ion-label>
+      </ion-item>
+      </ion-radio-group>
+  </ion-list>
+
+  <ion-button color="danger" class="ion-padding"
+   (click)="toggleLinkAccess()">Disable access link</ion-button>
+</div>
+  <div *ngIf="shoppingList.access === disabledlinkSharing">
+    <h4 class="ion-padding-start">Access link is disabled</h4>
+    <ion-button class="ion-padding" (click)="toggleLinkAccess()">Enable link access</ion-button>
+  </div>
+</ion-content>

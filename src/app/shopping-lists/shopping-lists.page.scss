@@ -5,22 +5,51 @@ ion-item{
   max-width: 100% !important;
 }
 
+@media(prefers-color-scheme: light){
+  .custom-button{
+    border-radius: 5px;
+    border: 1px solid #5d5d5d;
+    --box-shadow:none;
+    --background: white;
+    color: #121212;
+    font-size: 16px;
+    height: auto;
+    padding-right: 0;
+  }
 
-
-.custom-button{
-  border-radius: 5px;
-  border: 1px solid #5d5d5d;
-  --box-shadow:none;
-  --background: transparent;
-  font-size: 16px;
-  height: auto;
+  .edit-button{
+    --background-hover: transparent;
+    --box-shadow:none;
+    --background: transparent;
+    color: #121212;
+    padding-right: 0;
+  }
 }
 
-.edit-button{
-  --background-hover: transparent;
-  --box-shadow:none;
-  --background: transparent;
+@media(prefers-color-scheme: dark){
+ .custom-button{
+    border-radius: 5px;
+    border: 1px solid #5d5d5d;
+    --box-shadow:none;
+    --background: #121212;
+    font-size: 16px;
+    height: auto;
+    --padding-right: 0;
+  }
+
+ .edit-button{
+    --background-hover: #cec5c5;
+    --box-shadow:none;
+    --background: #121212;
+    --padding-right: 0;
+  }
+
+  .edit-button .button-solid :active{
+    --background-activated: #cec5c5;
+    --background-focused: #cec5c5;
+  }
 }
+
 
 span.ion-text-left {
   margin-right: auto;
@@ -37,6 +66,17 @@ ion-fab-button {
   --border-radius: 7px;
   width: calc(100vw - 50px);
   margin-left: 16px
+}
+
+.custom-input{
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  margin-right: auto;
+}
+
+input:focus{
+  outline: none !important;;
 }
 
 

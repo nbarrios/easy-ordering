@@ -10,7 +10,7 @@ import { PopoverActions, PopoverEmitAction, PopoverService } from './popover.ser
 export class PopoverComponent implements OnInit {
 
   service: PopoverService;
-  id: number;
+  id: string;
   // eslint-disable-next-line @typescript-eslint/member-ordering
 
   constructor(private popoverController: PopoverController, private navParams: NavParams) {
@@ -21,11 +21,31 @@ export class PopoverComponent implements OnInit {
     this.id = this.navParams.get('listId');
 
     console.log("id is : " + this.id);
-    this.emitPopoverEvent(new PopoverEmitAction(this.id, PopoverActions.renameList));
   }
 
   emitPopoverEvent(action: PopoverEmitAction){
     this.service.emitActionEvent(action);
+    this.popoverController.dismiss();
+  }
+
+  async renameList(){
+    const action = new PopoverEmitAction(this.id, PopoverActions.renameList);
+    this.emitPopoverEvent(action);
+  }
+
+  async copyLink(){
+    const action = new PopoverEmitAction(this.id, PopoverActions.copyLink);
+    this.emitPopoverEvent(action);
+  }
+
+  async changeAccess(){
+    const action = new PopoverEmitAction(this.id, PopoverActions.changeAccess);
+    this.emitPopoverEvent(action);
+  }
+
+  async deleteList(){
+    const action = new PopoverEmitAction(this.id, PopoverActions.deleteList);
+    this.emitPopoverEvent(action);
   }
 
 }

@@ -21,5 +21,5 @@ export enum PopoverActions{
 }
 
 export class PopoverEmitAction{
-  constructor(public id: number, public action: PopoverActions){}
+  constructor(public id: string, public action: PopoverActions){}
 }
