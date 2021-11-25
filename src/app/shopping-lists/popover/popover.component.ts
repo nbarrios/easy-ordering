@@ -19,8 +19,6 @@ export class PopoverComponent implements OnInit {
   ngOnInit() {
     this.service = this.navParams.get('service');
     this.id = this.navParams.get('listId');
-
-    console.log("id is : " + this.id);
   }
 
   emitPopoverEvent(action: PopoverEmitAction){

@@ -1,20 +1,39 @@
-ion-item{
-  border-radius: 7px;
-  border: 1px solid #5d5d5d;
-  min-width: 100% !important;
-  max-width: 100% !important;
-}
+
 
 @media(prefers-color-scheme: light){
-  .custom-button{
+  .custom-border{
     border-radius: 5px;
-    border: 1px solid #5d5d5d;
+    border: 1px solid #808289;
+    --background: #f4f5f8;
+    background: #f4f5f8;
+    --background-activated: #c3c4c8;
+  }
+  .custom-border:active{
+    --background:#5d5d5d;
+    background:#5d5d5d;
+    --background-activated: #5d5d5d;
+  }
+  .custom-border:hover{
+    --background:#dadada;
+    background:#dadada;
+  }
+
+  .custom-button{
     --box-shadow:none;
-    --background: white;
-    color: #121212;
+    --background: transparent;
+    --background-activated: transparent;
+    background: transparent;
+    color: #3f3f3f;
     font-size: 16px;
     height: auto;
     padding-right: 0;
+    --ripple-color: transparent
+  }
+
+  .custom-button:active{
+    --background:transparent;
+    background:transparent;
+    --ripple-color: transparent
   }
 
   .edit-button{
@@ -23,30 +42,68 @@ ion-item{
     --background: transparent;
     color: #121212;
     padding-right: 0;
+    --background-activated: transparent;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    --ripple-color: transparent
   }
 }
 
 @media(prefers-color-scheme: dark){
- .custom-button{
+  .custom-border{
     border-radius: 5px;
     border: 1px solid #5d5d5d;
+    --background: #222222;
+    background: #222222;
+    --background-activated: #5d5d5d;
+  }
+  .custom-border:active{
+    --background:#5d5d5d;
+    background:#5d5d5d;
+    --background-activated: #5d5d5d;
+  }
+  .custom-border:hover{
+    --background:#414141;
+    background:#414141;
+  }
+
+ .custom-button{
+    --background-hover: transparent;
     --box-shadow:none;
-    --background: #121212;
+    --background: transparent;
+    --background-activated: transparent;
     font-size: 16px;
     height: auto;
     --padding-right: 0;
+    --ripple-color: transparent
+  }
+  .custom-button:active{
+    --background:transparent;
+    background:transparent;
+    --ripple-color: transparent
   }
 
  .edit-button{
-    --background-hover: #cec5c5;
+    --background-hover: transparent;
     --box-shadow:none;
-    --background: #121212;
+    --background: transparent;
     --padding-right: 0;
+    --background-activated: transparent;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    --ripple-color: transparent
   }
 
-  .edit-button .button-solid :active{
-    --background-activated: #cec5c5;
-    --background-focused: #cec5c5;
+  .edit-button :active{
+    --background:transparent;
+    background:transparent;
+    --ripple-color: transparent
   }
 }
 
@@ -71,7 +128,7 @@ ion-fab-button {
 .custom-input{
   border: none;
   background: transparent;
-  font-size: 16px;
+  font-size: 17px;
   margin-right: auto;
 }
 

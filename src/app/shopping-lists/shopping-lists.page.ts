@@ -16,7 +16,7 @@ import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from 
 })
 
 export class ShoppingListsPage implements OnInit {
-  @ViewChild('listName') el: ElementRef;
+  //@ViewChild('listName') listNameInput: ElementRef<HTMLInputElement>;
   //shoppingLists: ShoppingList[];
   shoppingLists: ShoppingList[];
   editListName = -1;
@@ -39,8 +39,16 @@ export class ShoppingListsPage implements OnInit {
         //this.presentModal(this.shoppingLists[1]);
   }
 
-  ngAfterViewInit(){
-    this.el.nativeElement.focus(); //Not working!
+  /*ngAfterViewInit(){
+
+  }*/
+
+  ngAfterViewChecked(): void{
+    // used to show cursor when rename list is clicked
+    if(this.editListName !== -1){
+      const element = document.getElementById('inputlist'+this.editListName) as HTMLInputElement;
+      element.focus();
+    }
   }
 
   ngOnDestroy(){
@@ -49,7 +57,7 @@ export class ShoppingListsPage implements OnInit {
 
   //TODO change item to an object that has all details
   public async showPopover(ev: any, clickedItem: string){
-    console.log('clicked item is ' + clickedItem);
+    ev.stopImmediatePropagation();
     const popover = await this.popoverController.create({
       component: PopoverComponent,
       //cssClass: 'my-custom-class',
@@ -59,15 +67,11 @@ export class ShoppingListsPage implements OnInit {
     });
 
     await popover.present();
-
-
     const { role } = await popover.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
   }
 
   public addNewList(){
-    console.log('Adding new item to shopping list');
-    this.shoppingLists.push(new ShoppingList('', uuidv4())); //TODO Create unique id for each
+    this.shoppingLists.push(new ShoppingList('Untitled list', uuidv4())); //TODO Create unique id for each
     this.editListName = this.shoppingLists.length -1;
   }
 
@@ -76,7 +80,6 @@ export class ShoppingListsPage implements OnInit {
   }
 
   private async presentModal(list: ShoppingList) {
-    console.log(list.access);
     const modal = await this.modalController.create({
       component: ChangeAccessModalComponent,
       //cssClass: 'my-custom-class',
@@ -107,7 +110,6 @@ export class ShoppingListsPage implements OnInit {
 
   private renameList(id: string){
     this.editListName = this.getIndex(id);
-    //this.el.nativeElement.focus();
   }
 
   private getIndex(id: string): number{
@@ -155,7 +157,6 @@ export class ShoppingListsPage implements OnInit {
     await toast.present();
 
     const { role } = await toast.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
   }
 
   private changeAccess(id: string){
