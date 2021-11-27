@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Injectable } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { where } from 'firebase/firestore';
+import { Observable } from 'rxjs';
+import { FirebaseService } from 'src/app/firebase.service';
+import { EOOrder } from '../models/EOOrder';
 import { Member, OrderStatus } from '../models/Members';
 import { Order } from '../models/Order';
 
@@ -118,6 +123,9 @@ export class OrdersProvider {
     false
   );
 
+  activeOrders: AngularFirestoreCollection<EOOrder> = null;
+  completedOrders: AngularFirestoreCollection<EOOrder> = null;
+
   ordersList: Order[] = [
     this.order,
     this.order1,
@@ -126,22 +134,27 @@ export class OrdersProvider {
     this.order4
   ];
 
-  public getAllPreviousOrders(): Order[] {
-    const previousList = this.ordersList.filter((o: Order) => o.isActive === false);
-    return previousList;
+  constructor(
+    public fireservice: FirebaseService,
+    public firestore: AngularFirestore
+  ) {
+    this.activeOrders = this.firestore.collection<EOOrder>('orders',
+      ref => ref.where('owner', '==', this.fireservice.getUserID())
+      .where('completed', '==', false));
+    this.completedOrders = this.firestore.collection<EOOrder>('orders',
+      ref => ref.where('owner', '==', this.fireservice.getUserID())
+      .where('completed', '==', true));
   }
 
-  public getAllActiveOrders(): Order[] {
-    const activeList = this.ordersList.filter((o: Order) => o.isActive === true);
-    return activeList;
+  public getAllPreviousOrders(): Observable<EOOrder[]> {
+    return this.completedOrders.valueChanges({idField: 'docID'});
   }
 
-  public getOrder(id: string): Order{
-    for(let i = 0; i < this.ordersList.length; i++){
-      console.log('i : ' + i + ' id is : ' + this.ordersList[i].orderId);
-      if(this.ordersList[i].orderId === id)
-        {return this.ordersList[i];}
-    }
-    return null;
+  public getAllActiveOrders(): Observable<EOOrder[]> {
+    return this.activeOrders.valueChanges({idField: 'docID'});
+  }
+
+  public getOrder(id: string): Observable<EOOrder>{
+    return this.firestore.collection<EOOrder>('orders').doc(id).valueChanges();
   }
 }

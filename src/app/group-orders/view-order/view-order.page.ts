@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Order } from '../models/Order';
-import { Member } from '../models/Members';
+import { EOOrder } from '../models/EOOrder';
+import { EOUserOrder } from '../models/EOUserOrder';
 import { OrderStatus } from '../models/Members';
 import { IonItemSliding, IonTextarea } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
@@ -17,12 +17,12 @@ export class ViewOrderPage implements OnInit {
   @ViewChild('userPickupList') userPickupList: IonItemSliding;
 
   // current order showing on screen
-  order: Order;
+  order: EOOrder;
   // used for comparison
   filled = OrderStatus.filled;
 
   // current user info
-  userOrder: Member;
+  userOrder: EOUserOrder;
   userId: string;
   hideUserPickupList = true;
   hideInputOrder = false;
@@ -39,10 +39,12 @@ export class ViewOrderPage implements OnInit {
         return;
       }
       const orderId = paramMap.get('orderId');
-      this.order = this.ordersProvider.getOrder(orderId);
-      // using the first user, with userId from the list just for demo purposes
-      this.userOrder = this.order.members[0];
-      this.userId = this.userOrder.userId;
+      this.ordersProvider.getOrder(orderId).subscribe(val => {
+        this.order = val;
+        this.userOrder = this.order.orders[0];
+        // using the first user, with userId from the list just for demo purposes
+        this.userId = this.order.owner;
+      });
       this.setupUI();
     });
   }
@@ -52,8 +54,8 @@ export class ViewOrderPage implements OnInit {
     let list = inputOrder.split('\n');
     list = list.filter((item) => item !== '');
     if (inputOrder && inputOrder.length > 0 && list.length !== 0) {
-      this.userOrder.pickupList = list;
-      this.userOrder.orderStatus = OrderStatus.filled;
+      this.userOrder.order = list;
+      //this.userOrder.orderStatus = OrderStatus.filled;
     }
 
     this.hideUserPickupList = false;

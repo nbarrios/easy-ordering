@@ -20,7 +20,7 @@
 
         <ion-slides>
           <ion-slide *ngFor="let aOrder of activeOrders">
-            <app-card-active-order [order]="aOrder" [routerLink]="['./', aOrder.orderId]"></app-card-active-order>
+            <app-card-active-order [order]="aOrder" [routerLink]="['./', aOrder.docID]"></app-card-active-order>
           </ion-slide>
         </ion-slides>
 

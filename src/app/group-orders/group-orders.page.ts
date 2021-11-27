@@ -1,8 +1,6 @@
 import { Component, ComponentFactoryResolver, ComponentRef, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { Order } from './models/Order';
-//import { ActiveOrdersProvider } from './providers/ActiveOrdersProvider';
-//import { PreviousOrdersProvider } from './providers/previousOrdersProvider';
+import { EOOrder } from './models/EOOrder';
 import { OrdersProvider } from './providers/OrdersProvider';
 
 
@@ -15,9 +13,9 @@ export class GroupOrdersPage implements OnInit {
 
   @ViewChild('activeOrders', {read: ViewContainerRef}) container: ViewContainerRef;
 
-  activeOrders: Order[] = this.ordersProvider.getAllActiveOrders();
+  activeOrders: EOOrder[] = null;
 
-  previousOrders: Order[] = this.ordersProvider.getAllPreviousOrders();
+  previousOrders: EOOrder[] = null;
 
 
   constructor(
@@ -26,7 +24,7 @@ export class GroupOrdersPage implements OnInit {
   ) {}
 
 
-  public showOrder(order: Order){
+  public showOrder(order: EOOrder){
 
   }
 
@@ -35,6 +33,12 @@ export class GroupOrdersPage implements OnInit {
   }
 
   ngOnInit(){
+    this.ordersProvider.getAllActiveOrders().subscribe(val => {
+      this.activeOrders = val;
+    });
+    this.ordersProvider.getAllPreviousOrders().subscribe(val => {
+      this.previousOrders = val;
+    });
   }
 
 }

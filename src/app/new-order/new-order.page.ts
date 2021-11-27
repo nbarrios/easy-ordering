@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { EOOrder } from '../group-orders/models/EOOrder';
 import { FirebaseService } from '../firebase.service';
+import { EOUserOrder } from '../group-orders/models/EOUserOrder';
 
 export interface Order {
     restaurantName: string;
@@ -73,8 +74,9 @@ export class NewOrderPage implements OnInit {
         paymentInfoVenmo: values.paymentInfoVenmo,
         paymentInfoCash: values.paymentInfoCash,
         pickupTime: values.pickupTime,
+        completed: false,
         owner: this.fireservice.getUserID(),
-        users: new Array<string>()
+        orders: new Array<EOUserOrder>()
       }).then(val => {
         this.router.navigateByUrl('/tabs/group-orders');
       }, err => {
