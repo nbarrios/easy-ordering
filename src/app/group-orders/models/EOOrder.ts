@@ -1,3 +1,5 @@
+import { EOUserOrder } from './EOUserOrder';
+
 export interface EOOrder {
     restaurantName: string;
     restaurantAddress: string;
@@ -7,6 +9,7 @@ export interface EOOrder {
     paymentInfoVenmo: string;
     paymentInfoCash: string;
     pickupTime: string;
+    completed: boolean;
     owner: string;
-    users: Array<string>;
+    orders: Array<EOUserOrder>;
 }
