@@ -50,27 +50,15 @@ export class ViewOrderPage implements OnInit {
   }
 
   updateUserOrder(inputOrder: string) {
-    // split string into multiple lines, and removes empty lines
-    let list = inputOrder.split('\n');
-    list = list.filter((item) => item !== '');
-    if (inputOrder && inputOrder.length > 0 && list.length !== 0) {
-      this.userOrder.order = list;
-      //this.userOrder.orderStatus = OrderStatus.filled;
-    }
+    this.userOrder.order = inputOrder;
+    this.userOrder.status = OrderStatus.filled;
 
     this.hideUserPickupList = false;
     this.hideInputOrder = true;
   }
 
   modifyUserList() {
-    //TODO update order in database
-    // Copies list to input
-    let listToString = '';
-    for(let i = 0; i < this.userOrder.pickupList.length; i++){
-      listToString = listToString + this.userOrder.pickupList[i] + '\n';
-    }
-    
-    this.userInput.value = listToString;
+    this.userInput.value = this.userOrder.order;
     this.hideInputOrder = false;
     this.userPickupList.closeOpened();
   }
@@ -83,13 +71,13 @@ export class ViewOrderPage implements OnInit {
     // Close the options in UI
     this.userPickupList.closeOpened();
     // update order
-    this.userOrder.pickupList = [];
-    this.userOrder.orderStatus = OrderStatus.notFilled;
+    this.userOrder.order = '';
+    this.userOrder.status = OrderStatus.notFilled;
   }
 
   // Hide or show input field when loading the page based if the current user filled his list
   private setupUI(){
-    if(this.userOrder.orderStatus === OrderStatus.filled){
+    if(this.userOrder.status === OrderStatus.filled){
       this.hideUserPickupList = false;
       this.hideInputOrder = true;
     }else{

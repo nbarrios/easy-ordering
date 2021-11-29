@@ -40,7 +40,7 @@
               <ion-item>
                 <ion-label>
                   <h2><b>{{userOrder.name}}</b>&nbsp;(You)</h2>
-                  <p style="flex:none; margin-left: 16px;" *ngFor="let item of userOrder.pickupList">{{item}}</p>
+                  <p style="flex:none; margin-left: 16px;">{{userOrder.order}}</p>
                 </ion-label>
                 <ion-item-options side="end">
                   <ion-item-option style="pointer-events: auto" (click)='modifyUserList()'>
@@ -53,13 +53,13 @@
               </ion-item>
             </ion-item-sliding>
 
-          <div #pickupList *ngFor="let member of order.members">
+          <div #pickupList *ngFor="let userOrder of order.orders">
             <!-- other members list -->
-            <ion-item *ngIf="(member.orderStatus === filled) && member.userId !== userId">
+            <ion-item *ngIf="(userOrder.status === filled) && userOrder.user !== userId">
               <ion-label>
-                <h2><b>{{member.name}}</b></h2>
-                <p style="flex: none; margin-left: 16px" *ngFor="let item of member.pickupList">
-                  {{item}}
+                <h2><b>{{userOrder.user}}</b></h2>
+                <p style="flex: none; margin-left: 16px">
+                  {{userOrder.order}}
                 </p>
               </ion-label>
             </ion-item>
