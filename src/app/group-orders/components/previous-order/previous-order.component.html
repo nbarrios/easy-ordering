@@ -1,19 +1,19 @@
-
-
 <ion-item>
 <ion-grid class="ion-padding-top">
   <ion-row>
-    <ion-col>{{order.storeName}}</ion-col>
-    <ion-col class="ion-text-right">{{order.date}}</ion-col>
+    <ion-col class="restName">{{order.restaurantName}}</ion-col>
+    <ion-col class="ion-text-right">{{order.pickupTime}}</ion-col>
   </ion-row>
 
   <ion-row>
-    <div *ngFor="let member of order.members; let i = index">
-      <p *ngIf="i < order.members.length - 1; else elsetag"> {{member.name}}, &nbsp;</p>
-      <ng-template #elsetag>
-        <p>{{member.name}}</p>
-      </ng-template>
-    </div>
+    <ion-col id="userList">
+      <span *ngFor="let userOrder of order.orders; let i = index">
+        <span *ngIf="i < order.orders.length - 1; else elsetag"> {{ userMap.get(userOrder.user) }}, &nbsp;</span>
+        <ng-template #elsetag>
+          <span>{{ userMap.get(userOrder.user) }}</span>  
+        </ng-template>
+      </span>
+    </ion-col>
   </ion-row>
 </ion-grid>
 </ion-item>
