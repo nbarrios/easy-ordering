@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { EOOrder } from '../models/EOOrder';
-import { EOUserOrder } from '../models/EOUserOrder';
+import { GroupOrder } from '../models/GroupOrder';
+import { UserOrder } from '../models/UserOrder';
 import { OrderStatus } from '../models/Members';
 import { IonItemSliding, IonTextarea } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
@@ -17,12 +17,12 @@ export class ViewOrderPage implements OnInit {
   @ViewChild('userPickupList') userPickupList: IonItemSliding;
 
   // current order showing on screen
-  order: EOOrder;
+  order: GroupOrder;
   // used for comparison
   filled = OrderStatus.filled;
 
   // current user info
-  userOrder: EOUserOrder;
+  userOrder: UserOrder;
   userId: string;
   hideUserPickupList = true;
   hideInputOrder = false;

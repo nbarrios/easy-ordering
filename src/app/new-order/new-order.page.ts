@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { EOOrder } from '../group-orders/models/EOOrder';
+import { GroupOrder } from '../group-orders/models/GroupOrder';
 import { FirebaseService } from '../firebase.service';
-import { EOUserOrder } from '../group-orders/models/EOUserOrder';
+import { UserOrder } from '../group-orders/models/UserOrder';
 
 export interface Order {
     restaurantName: string;
@@ -55,7 +55,6 @@ export class NewOrderPage implements OnInit {
   }
 
   onPaymentToggle($event) {
-    console.log($event.target.checked);
   }
 
   onSubmit() {
@@ -64,19 +63,19 @@ export class NewOrderPage implements OnInit {
 
     if (this.newOrderForm.valid && this.fireservice.getUserID()) {
       const values = this.newOrderForm.value;
-      const orders = this.firestore.collection<EOOrder>('orders');
+      const orders = this.firestore.collection<GroupOrder>('orders');
       orders.add({
         restaurantName: values.restaurantName,
         restaurantAddress: values.restaurantAddress,
         restaurantWebsite: values.restaurantWebsite,
-        groupMesssage: values.groupMessage,
+        groupMessage: values.groupMessage,
         paymentInfoPaypal: values.paymentInfoPaypal,
         paymentInfoVenmo: values.paymentInfoVenmo,
         paymentInfoCash: values.paymentInfoCash,
         pickupTime: values.pickupTime,
         completed: false,
         owner: this.fireservice.getUserID(),
-        orders: new Array<EOUserOrder>()
+        orders: new Array<UserOrder>()
       }).then(val => {
         this.router.navigateByUrl('/tabs/group-orders');
       }, err => {
