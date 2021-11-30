@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FirebaseService, FirebaseUserData } from '../firebase.service';
 import { AlertController } from '@ionic/angular';
-import { confirmPasswordReset, getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { confirmPasswordReset, getAuth, sendPasswordResetEmail } from 'firebase/auth';
 
 @Component({
   selector: 'app-settings',
@@ -81,12 +81,11 @@ export class SettingsPage implements OnInit {
 
   changePassword() {
     const auth = getAuth();
-    
     // Send passwork reset link to email
     this.fireservice.auth.sendPasswordResetEmail(this.userData.email)
     .then(() => {
       // Password reset email sent!
-      console.log('Email to reset was sent.')
+      console.log('Email to reset was sent.');
       alert('Password reset link has been sent to your email.');
     },err=>{
       const errCode = err.code;
