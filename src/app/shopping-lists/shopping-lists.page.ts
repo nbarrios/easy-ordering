@@ -4,10 +4,8 @@ import { PopoverComponent } from './popover/popover.component';
 import { PopoverActions, PopoverEmitAction, PopoverService } from './popover/popover.service';
 import { ChangeAccessModalComponent } from './change-access-modal/change-access-modal.component';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
-import {v4 as uuidv4} from 'uuid';
 import { ShoppingList, ShoppingListAccess } from './models/ShoppingList';
-import { FirebaseService } from '../firebase.service';
-import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/compat/firestore';
+import { ListProviderService } from './list-provider.service';
 
 @Component({
   selector: 'app-shopping-lists',
@@ -16,8 +14,7 @@ import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from 
 })
 
 export class ShoppingListsPage implements OnInit {
-  //@ViewChild('listName') listNameInput: ElementRef<HTMLInputElement>;
-  //shoppingLists: ShoppingList[];
+
   shoppingLists: ShoppingList[];
   editListName = -1;
   subscription: any;
@@ -26,23 +23,20 @@ export class ShoppingListsPage implements OnInit {
      public popoverService: PopoverService,
      public modalController: ModalController,
      public toastController: ToastController,
+     public listsProvider: ListProviderService
      //private clipboard: Clipboard
-     ) {
-    this.shoppingLists = [
-      new ShoppingList('Books list', uuidv4()), new ShoppingList('Groceries list', uuidv4())
-    ];
-  }
+     ) {}
 
   ngOnInit(){
     this.subscription = this.popoverService.getpopoverActionEmitter()
         .subscribe(action => this.popoverAction(action));
-        //this.presentModal(this.shoppingLists[1]);
+
+        this.listsProvider.getAllUserShoppingLists().subscribe(
+          val => { this.shoppingLists = val;}
+        );
   }
 
-  /*ngAfterViewInit(){
-
-  }*/
-
+  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
   ngAfterViewChecked(): void{
     // used to show cursor when rename list is clicked
     if(this.editListName !== -1){
@@ -51,6 +45,7 @@ export class ShoppingListsPage implements OnInit {
     }
   }
 
+  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
   ngOnDestroy(){
     this.subscription.unsubscribe();
   }
@@ -60,7 +55,6 @@ export class ShoppingListsPage implements OnInit {
     ev.stopImmediatePropagation();
     const popover = await this.popoverController.create({
       component: PopoverComponent,
-      //cssClass: 'my-custom-class',
       event: ev,
       componentProps: {service: this.popoverService, listId: clickedItem},
       translucent: true
@@ -71,11 +65,12 @@ export class ShoppingListsPage implements OnInit {
   }
 
   public addNewList(){
-    this.shoppingLists.push(new ShoppingList('Untitled list', uuidv4())); //TODO Create unique id for each
     this.editListName = this.shoppingLists.length -1;
+    this.listsProvider.addList(new ShoppingList('Untitled list'));
   }
 
   resetEditListName(){
+    this.listsProvider.updateList(this.shoppingLists[this.editListName]);
     this.editListName = -1;
   }
 
@@ -125,7 +120,7 @@ export class ShoppingListsPage implements OnInit {
   }
 
   private copyLink(id: string){
-    // Clipoard not working !
+    // Clipboard not working !
     //this.clipboard.copy('Also links are not yet implemented');
     const i = this.getIndex(id);
     if(i > 0){
@@ -167,8 +162,7 @@ export class ShoppingListsPage implements OnInit {
   }
 
   private deleteList(id: string){
-      this.shoppingLists = this.shoppingLists.filter(e => e.id !== id);
+      this.listsProvider.deleteList(id);
+      //this.shoppingLists = this.shoppingLists.filter(e => e.id !== id);
   }
-
-
 }

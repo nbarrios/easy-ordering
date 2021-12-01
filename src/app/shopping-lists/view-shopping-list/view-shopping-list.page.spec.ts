@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { ExploreContainerComponentModule } from '../../explore-container/explore-container.module';
+//import { ExploreContainerComponentModule } from '../../explore-container/explore-container.module';
 
 import { ViewShoppingListPage } from './view-shopping-list.page';
 
@@ -11,7 +11,7 @@ describe('ShoppingListsPage', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ViewShoppingListPage],
-      imports: [IonicModule.forRoot(), ExploreContainerComponentModule]
+      imports: [IonicModule.forRoot()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ViewShoppingListPage);

@@ -10,6 +10,7 @@ import { ShoppingListsPage } from './shopping-lists.page';
 import { PopoverService } from './popover/popover.service';
 import { PopoverComponent } from './popover/popover.component';
 import { ChangeAccessModalComponent } from './change-access-modal/change-access-modal.component';
+import { ListProviderService } from './list-provider.service';
 
 
 @NgModule({
@@ -20,6 +21,6 @@ import { ChangeAccessModalComponent } from './change-access-modal/change-access-
     ShoppingListsPageRoutingModule
   ],
   declarations: [ShoppingListsPage, PopoverComponent, ChangeAccessModalComponent],
-  providers: [PopoverService],
+  providers: [PopoverService, ListProviderService],
 })
 export class ShoppingListsPageModule {}

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { ModalController, IonRadioGroup } from '@ionic/angular';
+import { ListProviderService } from '../list-provider.service';
 import { ShoppingList, ShoppingListAccess } from '../models/ShoppingList';
 
 @Component({
@@ -15,7 +16,7 @@ disabledlinkSharing: ShoppingListAccess = ShoppingListAccess.linkSharingDisabled
 viewValue = 'view';
 viewAndEditValue = 'viewAndEdit';
 checkedValue = '';
-  constructor(private modalController: ModalController) {
+  constructor(private modalController: ModalController, public listProvider: ListProviderService) {
   }
 
   ngOnInit() {
@@ -34,6 +35,7 @@ checkedValue = '';
   }
 
   dismissModal(){
+    this.listProvider.updateList(this.shoppingList);
     this.modalController.dismiss();
   }
 

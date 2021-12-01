@@ -19,10 +19,10 @@ const routes: Routes = [
         path: 'shopping-lists',
         loadChildren: () => import('../shopping-lists/shopping-lists.module').then(m => m.ShoppingListsPageModule)
       },
-      { //not working
-        path: 'shopping-lists/view/',
+      /*{ //not working
+        path: 'shopping-lists/view/:listId',
         loadChildren: () => import('../shopping-lists/view-shopping-list/view-shopping-list.module').then(m => m.ViewShoppingListPageModule)
-      },
+      },*/
       {
         path: 'settings',
         loadChildren: () => import('../settings/settings.module').then(m => m.SettingsPageModule)

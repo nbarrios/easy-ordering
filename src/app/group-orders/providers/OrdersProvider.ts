@@ -8,11 +8,6 @@ import { GroupOrder } from '../models/GroupOrder';
 import { Member, OrderStatus } from '../models/Members';
 import { Order } from '../models/Order';
 
-/* todo replace when switching to service
-@Injectable({
-  providedIn: 'root'
-})
-*/
 
 @Injectable()
 export class OrdersProvider {

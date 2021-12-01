@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: ShoppingListsPage
+  },
+  { //not working
+    path: 'view/:listId',
+    loadChildren: () => import('../shopping-lists/view-shopping-list/view-shopping-list.module').then(m => m.ViewShoppingListPageModule)
   }
 ];
 
