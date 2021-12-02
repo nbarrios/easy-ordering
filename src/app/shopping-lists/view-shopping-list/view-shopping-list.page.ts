@@ -26,16 +26,15 @@ export class ViewShoppingListPage implements OnInit {
   ngOnInit(){
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       if (!paramMap.has('listId')) {
-        console.log("No doc id ");
+        console.log('No doc id ');
         return;
       }
-      console.log("doc id received");
+      console.log('doc id received');
     const listId = paramMap.get('listId');
     console.log(listId);
     this.listsProvider.getList(listId).subscribe(
       val => {
         this.shoppingList = val;
-      
         if (this.shoppingList != null && this.shoppingList.items == null) {
           this.shoppingList.items = new Array<Item>();
           this.items = this.shoppingList.items;

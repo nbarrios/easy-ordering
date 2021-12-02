@@ -28,7 +28,7 @@ export class ListProviderService {
 
      public getList(id: string): Observable<ShoppingList>
      {
-       console.log("getList id : " + id);
+       console.log('getList id : ' + id);
        // return this.firestore.collection<ShoppingList>(this.collectionName).doc(id).valueChanges();
        return this.firestore.collection<ShoppingList>(this.collectionName).doc(id).valueChanges();
      }
