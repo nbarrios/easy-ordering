@@ -41,7 +41,9 @@ export class SettingsPage implements OnInit {
 
       reader.onload = (ev) => {
         // called once readAsDataURL is completed
-        this.profileImage = event.target.result;
+        console.log(reader.result);
+        console.log(event);
+        this.profileImage = reader.result;
       };
 
       // Updates picture to Firebase

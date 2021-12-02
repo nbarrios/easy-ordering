@@ -11,10 +11,10 @@
     <ion-row>
       <ion-col class="profile-icon ion-text-center">
         <ion-label class="image-container">
-          <img [src]="url ? url : 'https://seekicon.com/free-icon-download/person-circle-outline_1.svg'" class=""> 
+          <img [src]="profileImage ? profileImage : 'https://seekicon.com/free-icon-download/person-circle-outline_1.svg'" class=""> 
           <input type='file' (change)='changePicture($event)' class="select-profile-picture">
         </ion-label>
-        <ion-button *ngIf="url" (click)='delete()' id="deleteBTN" color="white">Delete Image</ion-button>
+        <ion-button *ngIf="profileImage" (click)='delete()' id="deleteBTN" color="white">Delete Image</ion-button>
       </ion-col>
     </ion-row>
     <ion-row>
