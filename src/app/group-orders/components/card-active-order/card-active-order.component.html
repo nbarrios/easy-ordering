@@ -23,7 +23,7 @@
         <div *ngFor="let order of order.orders; let i = index">
           <ion-chip>
             <!--<ion-icon src=''></ion-icon>-->
-            <ion-label>{{ userMap.get(order.user) }}</ion-label>
+            <ion-label>{{ fireservice.nameForUser(order.user) }}</ion-label>
           </ion-chip>
         </div>
       </ion-row>

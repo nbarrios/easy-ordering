@@ -8,9 +8,9 @@
   <ion-row>
     <ion-col id="userList">
       <span *ngFor="let userOrder of order.orders; let i = index">
-        <span *ngIf="i < order.orders.length - 1; else elsetag"> {{ userMap.get(userOrder.user) }}, &nbsp;</span>
+        <span *ngIf="i < order.orders.length - 1; else elsetag"> {{ fireservice.nameForUser(userOrder.user) }}, &nbsp;</span>
         <ng-template #elsetag>
-          <span>{{ userMap.get(userOrder.user) }}</span>  
+          <span>{{ fireservice.nameForUser(userOrder.user) }}</span>  
         </ng-template>
       </span>
     </ion-col>

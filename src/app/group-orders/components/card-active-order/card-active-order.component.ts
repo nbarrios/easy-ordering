@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FirebaseUserData } from 'src/app/firebase.service';
+import { FirebaseService, FirebaseUserData } from 'src/app/firebase.service';
 import { GroupOrder } from '../../models/GroupOrder';
 
 @Component({
@@ -9,19 +9,13 @@ import { GroupOrder } from '../../models/GroupOrder';
   styleUrls: ['./card-active-order.component.scss'],
 })
 export class CardActiveOrderComponent implements OnInit {
-
   @Input() order: GroupOrder;
-  @Input() userMap: Map<string, string> = new Map();
 
-  constructor(public firestore: AngularFirestore) {}
+  constructor(
+    public firestore: AngularFirestore,
+    public fireservice: FirebaseService
+  ) {}
 
-  ngOnInit() {
-    for (const order of this.order.orders) {
-      this.firestore.collection<FirebaseUserData>('users').doc(order.user)
-        .valueChanges().subscribe(val => {
-          this.userMap.set(order.user, val.name.length > 0 ? val.name : val.email);
-        });
-    }
-  }
+  ngOnInit() {}
 
 }
