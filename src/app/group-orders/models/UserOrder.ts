@@ -1,5 +1,4 @@
-export interface UserOrder {
-    user: string;
+export class UserOrder {
     order: string;
     status: number;
 }

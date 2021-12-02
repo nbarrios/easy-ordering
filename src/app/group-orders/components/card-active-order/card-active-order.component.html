@@ -20,10 +20,10 @@
   <ion-card-content>
     <ion-grid>
       <ion-row>
-        <div *ngFor="let order of order.orders; let i = index">
+        <div *ngFor="let userOrder of order.orders | keyvalue">
           <ion-chip>
             <!--<ion-icon src=''></ion-icon>-->
-            <ion-label>{{ fireservice.nameForUser(order.user) }}</ion-label>
+            <ion-label>{{ fireservice.nameForUser(userOrder.key) }}</ion-label>
           </ion-chip>
         </div>
       </ion-row>
@@ -31,7 +31,7 @@
       <ion-row class="ion-margin-top">
         <ion-col class="ion-text-left">Group Message</ion-col>
         <ion-col>
-          <p class="ion-text-right">{{ order.orders.length }} people</p>
+          <p class="ion-text-right">{{ userCount }} people</p>
         </ion-col>
       </ion-row>
       <ion-row>

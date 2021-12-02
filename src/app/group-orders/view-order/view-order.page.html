@@ -8,12 +8,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Easy Order</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <ion-grid>
     <ion-row>
       <ion-col size-md="6" offset-md="3">
@@ -23,7 +17,7 @@
           </ion-col>
 
           <ion-col>
-            <ion-row>
+            <ion-row *ngIf="order">
               <ion-col>
                 <ion-label class="storename"><h1>{{order.restaurantName}}</h1></ion-label>
                 <ion-label color="medium">{{order.restaurantAddress}}</ion-label>
@@ -32,34 +26,34 @@
           </ion-col>
         </ion-row>
 
-        <ion-list>
+        <ion-list *ngIf="order">
           <ion-list-header><h2>Pick-up list</h2></ion-list-header>
 
-            <!-- Current user list -->
-            <ion-item-sliding #userPickupList [hidden]="hideUserPickupList">
-              <ion-item>
-                <ion-label>
-                  <h2><b>{{userOrder.name}}</b>&nbsp;(You)</h2>
-                  <p style="flex:none; margin-left: 16px;">{{userOrder.order}}</p>
-                </ion-label>
-                <ion-item-options side="end">
-                  <ion-item-option style="pointer-events: auto" (click)='modifyUserList()'>
-                    Modify
-                  </ion-item-option>
-                  <ion-item-option color="danger" style="pointer-events: auto" (click)='deleteUserList()'>
-                    Delete
-                  </ion-item-option>
-                </ion-item-options>
-              </ion-item>
-            </ion-item-sliding>
-
-          <div #pickupList *ngFor="let userOrder of order.orders">
-            <!-- other members list -->
-            <ion-item *ngIf="(userOrder.status === filled) && userOrder.user !== userId">
+          <!-- Current user list -->
+          <ion-item-sliding #userPickupList [hidden]="hideUserPickupList">
+            <ion-item>
               <ion-label>
-                <h2><b>{{userOrder.user}}</b></h2>
+                <h2><b>{{ fireservice.nameForUser(userId) }}</b>&nbsp;(You)</h2>
+                <p style="flex:none; margin-left: 16px;">{{userOrder.order}}</p>
+              </ion-label>
+              <ion-item-options side="end">
+                <ion-item-option style="pointer-events: auto" (click)='modifyUserList()'>
+                  Modify
+                </ion-item-option>
+                <ion-item-option color="danger" style="pointer-events: auto" (click)='deleteUserList()'>
+                  Delete
+                </ion-item-option>
+              </ion-item-options>
+            </ion-item>
+          </ion-item-sliding>
+
+          <div #pickupList *ngFor="let anOrder of order.orders | keyvalue">
+            <!-- other members list -->
+            <ion-item *ngIf="(anOrder.value.status === filled) && anOrder.key !== userId">
+              <ion-label>
+                <h2><b>{{ fireservice.nameForUser(anOrder.key) }}</b></h2>
                 <p style="flex: none; margin-left: 16px">
-                  {{userOrder.order}}
+                  {{anOrder.value.order}}
                 </p>
               </ion-label>
             </ion-item>

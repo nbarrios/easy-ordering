@@ -6,6 +6,10 @@ import { OrderStatus } from '../models/Members';
 import { IonItemSliding, IonTextarea } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { OrdersProvider } from '../providers/OrdersProvider';
+import { GroupOrdersPage } from '../group-orders.page';
+import { FirebaseService } from 'src/app/firebase.service';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { instanceToPlain } from 'class-transformer';
 
 @Component({
   selector: 'app-view-order',
@@ -17,10 +21,10 @@ export class ViewOrderPage implements OnInit {
   @ViewChild('userPickupList') userPickupList: IonItemSliding;
 
   // current order showing on screen
+  orderId: string;
   order: GroupOrder;
   // used for comparison
   filled = OrderStatus.filled;
-
   // current user info
   userOrder: UserOrder;
   userId: string;
@@ -29,29 +33,41 @@ export class ViewOrderPage implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private ordersProvider: OrdersProvider
-  ) {
-  }
+    private ordersProvider: OrdersProvider,
+    private firestore: AngularFirestore,
+    private fireservice: FirebaseService
+  ) {}
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       if (!paramMap.has('orderId')) {
         return;
       }
-      const orderId = paramMap.get('orderId');
-      this.ordersProvider.getOrder(orderId).subscribe(val => {
+      this.orderId = paramMap.get('orderId');
+      this.ordersProvider.getOrder(this.orderId).subscribe(val => {
         this.order = val;
-        this.userOrder = this.order.orders[0];
-        // using the first user, with userId from the list just for demo purposes
         this.userId = this.order.owner;
+        if (this.order.orders.hasOwnProperty(this.userId)) {
+          this.userOrder = this.order.orders[this.userId];
+        } else {
+          this.userOrder = new UserOrder();
+        }
+        // using the first user, with userId from the list just for demo purposes
+        this.setupUI();
       });
-      this.setupUI();
     });
   }
 
   updateUserOrder(inputOrder: string) {
     this.userOrder.order = inputOrder;
     this.userOrder.status = OrderStatus.filled;
+
+    this.order.orders[this.userId] = this.userOrder;
+    this.firestore.collection('orders').doc(this.orderId).update(instanceToPlain(this.order)).then(val => {
+      //
+    }, err => {
+      console.log(err);
+    });
 
     this.hideUserPickupList = false;
     this.hideInputOrder = true;

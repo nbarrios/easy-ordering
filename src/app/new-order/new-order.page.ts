@@ -5,6 +5,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { GroupOrder } from '../group-orders/models/GroupOrder';
 import { FirebaseService } from '../firebase.service';
 import { UserOrder } from '../group-orders/models/UserOrder';
+import { instanceToPlain } from 'class-transformer';
 
 export interface Order {
     restaurantName: string;
@@ -63,7 +64,8 @@ export class NewOrderPage implements OnInit {
 
     if (this.newOrderForm.valid && this.fireservice.getUserID()) {
       const values = this.newOrderForm.value;
-      const orders = this.firestore.collection<GroupOrder>('orders');
+      const orders = this.firestore.collection('orders');
+      const userOrders = new Map<string, UserOrder>();
       orders.add({
         restaurantName: values.restaurantName,
         restaurantAddress: values.restaurantAddress,
@@ -75,7 +77,7 @@ export class NewOrderPage implements OnInit {
         pickupTime: values.pickupTime,
         completed: false,
         owner: this.fireservice.getUserID(),
-        orders: new Array<UserOrder>()
+        orders: instanceToPlain(userOrders)
       }).then(val => {
         this.router.navigateByUrl('/tabs/group-orders');
       }, err => {

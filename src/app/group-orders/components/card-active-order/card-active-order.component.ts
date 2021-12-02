@@ -10,12 +10,15 @@ import { GroupOrder } from '../../models/GroupOrder';
 })
 export class CardActiveOrderComponent implements OnInit {
   @Input() order: GroupOrder;
+  userCount = 0;
 
   constructor(
     public firestore: AngularFirestore,
     public fireservice: FirebaseService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userCount = Object.keys(this.order.orders).length;
+  }
 
 }
