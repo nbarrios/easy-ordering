@@ -18,6 +18,7 @@ export class FirebaseUserData {
 })
 export class FirebaseService {
   private user: firebase.User = null;
+  private userMap: Map<string, string> = new Map();
 
   constructor(
     public firestore: AngularFirestore,
@@ -92,5 +93,21 @@ export class FirebaseService {
 
   getDetails() {
     return this.firestore.collection<FirebaseUserData>('users').doc(this.user.uid).valueChanges();
+  }
+
+  cacheNameForUser(uid: string) {
+    this.firestore.collection<FirebaseUserData>('users').doc(uid)
+      .valueChanges().subscribe(val => {
+        this.userMap.set(uid, (val.name && val.name.length > 0) ? val.name : val.email);
+    });
+  }
+
+  nameForUser(uid: string): string {
+    if (this.userMap.has(uid)) {
+      return this.userMap.get(uid);
+    } else {
+      this.cacheNameForUser(uid);
+      return '';
+    }
   }
 }
