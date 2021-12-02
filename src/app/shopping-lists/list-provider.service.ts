@@ -5,6 +5,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/comp
 import { Observable } from 'rxjs';
 import { FirebaseService } from 'src/app/firebase.service';
 import { Item, ShoppingList } from './models/ShoppingList';
+import { instanceToPlain } from 'class-transformer';
 
 @Injectable({
   providedIn: 'root'
@@ -55,13 +56,7 @@ export class ListProviderService {
      public updateList(list: ShoppingList){
       const listDoc = this.userCollection.doc(list.id);
       // Destroy and create a new doc
-      listDoc.set({
-        name: list.name,
-        id: list.id,
-        items: list.items,
-        access: list.access,
-        owner: this.fireservice.getUserID()
-      });
+      listDoc.set(instanceToPlain(list) as ShoppingList);
     }
 
     // eslint-disable-next-line @typescript-eslint/member-ordering
