@@ -29,12 +29,7 @@ export class ListProviderService {
      {
        console.log("getList id : " + id);
        // return this.firestore.collection<ShoppingList>(this.collectionName).doc(id).valueChanges();
-       const a = this.firestore.collection<ShoppingList>(this.collectionName,
-        ref => ref.where('id', '==', id)).valueChanges();
-        if(a != null){
-          return a[0];
-        }
-        return null;
+       return this.firestore.collection<ShoppingList>(this.collectionName).doc(id).valueChanges();
      }
 
      public addList(list: ShoppingList)
