@@ -29,7 +29,7 @@
           </ion-row>
           <ion-row  *ngFor="let pOrder of previousOrders">
             <ion-col>
-            <app-previous-order [order] = "pOrder" [routerLink]="['./', pOrder.orderId]"></app-previous-order>
+            <app-previous-order [order] = "pOrder" [routerLink]="['./', pOrder.docID]"></app-previous-order>
           </ion-col>
           </ion-row>
 
