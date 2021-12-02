@@ -33,16 +33,18 @@ export class ViewShoppingListPage implements OnInit {
     const listId = paramMap.get('listId');
     console.log(listId);
     this.listsProvider.getList(listId).subscribe(
-      val => { this.shoppingList = val;}
+      val => {
+        this.shoppingList = val;
+      
+        if (this.shoppingList != null && this.shoppingList.items == null) {
+          this.shoppingList.items = new Array<Item>();
+          this.items = this.shoppingList.items;
+        }
+        else if (this.shoppingList != null) {
+          this.items = this.shoppingList.items;
+        }
+      }
     );
-    if(this.shoppingList == null){
-      console.log("shoppingList is null");
-    }
-    if(this.shoppingList != null && this.shoppingList.items == null){
-      console.log("items are null");
-      this.shoppingList.items = new Array<Item>();
-      this.items = this.shoppingList.items;
-    }else if(this.shoppingList != null) {this.items = this.shoppingList.items;}
   });
   }
 
