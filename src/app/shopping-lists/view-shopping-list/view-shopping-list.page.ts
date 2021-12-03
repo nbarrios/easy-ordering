@@ -10,7 +10,8 @@ import { Item as Item, ShoppingList } from '../models/ShoppingList';
   styleUrls: ['view-shopping-list.page.scss']
 })
 export class ViewShoppingListPage implements OnInit {
-  shoppingList: (ShoppingList);
+  shoppingList: ShoppingList;
+  shoppingListID: string;
   items: Item[] = null;
 
   constructor(public alertCtrl: AlertController,
@@ -25,9 +26,11 @@ export class ViewShoppingListPage implements OnInit {
       console.log('doc id received');
     const listId = paramMap.get('listId');
     console.log(listId);
-    this.listsProvider.getList(listId).subscribe(
-      val => {this.shoppingList = val;});
+    this.listsProvider.getList(listId).subscribe(val => {
+      this.shoppingList = val; //HERE
+    });
 
+    //This code checks for null before the code marked HERE is ever run
       if(this.shoppingList == null){
         console.log("shoppinglist is null");
       }else console.log("shoppinglist is not null");

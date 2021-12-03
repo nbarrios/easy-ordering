@@ -20,11 +20,11 @@ export class ListProviderService {
        ref => ref.where('owner', '==', this.fireservice.getUserID()));
     }
 
-     public getAllUserShoppingLists(): Observable<(ShoppingList & {docID: string;})[]>{
+     public getAllUserShoppingLists(): Observable<ShoppingList[]>{
        return this.userCollection.valueChanges({idField: 'docID'});
      }
 
-     public getList(id: string): Observable<(ShoppingList & {docID: string;})>{
+     public getList(id: string): Observable<ShoppingList>{
        console.log('getList id : ' + id);
        // return this.firestore.collection<ShoppingList>(this.collectionName).doc(id).valueChanges();
        return this.firestore.collection<ShoppingList>(this.collectionName).doc(id).valueChanges({idField: 'docID'});
@@ -41,7 +41,7 @@ export class ListProviderService {
      }
 
      // eslint-disable-next-line @typescript-eslint/member-ordering
-     public updateList(list: (ShoppingList & {docID: string;})){
+     public updateList(list: ShoppingList){
       const listDoc = this.userCollection.doc(list.docID);
       // Destroy and create a new doc
       listDoc.set(instanceToPlain(list) as ShoppingList);
