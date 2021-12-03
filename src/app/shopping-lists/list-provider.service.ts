@@ -27,6 +27,8 @@ export class ListProviderService {
      public getList(id: string): Observable<(ShoppingList & {docID: string;})>{
        console.log('getList id : ' + id);
        // return this.firestore.collection<ShoppingList>(this.collectionName).doc(id).valueChanges();
+       this.userCollection = this.firestore.collection<ShoppingList>(this.collectionName,
+        ref => ref.where('owner', '==', this.fireservice.getUserID()));
        return this.firestore.collection<ShoppingList>(this.collectionName).doc(id).valueChanges({idField: 'docID'});
      }
 

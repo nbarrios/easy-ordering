@@ -13,8 +13,8 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-list>
-    <ion-item *ngFor="let item of items; let i=index">
+  <ion-list *ngIf='shoppingList'>
+    <ion-item *ngFor="let item of shoppingList.items; let i=index">
       <ion-label>{{item.name}}</ion-label>
       <ion-button class="trashBTN" (click)="deleteItem(i)" color="white">
         <ion-icon name="trash"></ion-icon>

@@ -10,36 +10,27 @@ import { Item as Item, ShoppingList } from '../models/ShoppingList';
   styleUrls: ['view-shopping-list.page.scss']
 })
 export class ViewShoppingListPage implements OnInit {
-  shoppingList: (ShoppingList);
-  items: Item[] = null;
+  shoppingList: ShoppingList & {docID: string;} = null;
+  //items: Item[] = null;
 
   constructor(public alertCtrl: AlertController,
      public listsProvider: ListProviderService, public activatedRoute: ActivatedRoute) {}
 
   ngOnInit(){
-    this.activatedRoute.paramMap.subscribe((paramMap) => {
+    let listId = '';
+    this.activatedRoute.paramMap.subscribe( (paramMap) => {
       if (!paramMap.has('listId')) {
         console.log('No doc id ');
         return;
       }
-      console.log('doc id received');
-    const listId = paramMap.get('listId');
-    console.log(listId);
-    this.listsProvider.getList(listId).subscribe(
-      val => {this.shoppingList = val;});
-
-      if(this.shoppingList == null){
-        console.log("shoppinglist is null");
-      }else console.log("shoppinglist is not null");
-
-       /*if (this.shoppingList != null && this.shoppingList.items == null) {
-          this.shoppingList.items = new Array<Item>();
-          this.items = this.shoppingList.items;
-        }
-        else if (this.shoppingList != null) {
-          this.items = this.shoppingList.items;
-        }*/
+      listId = paramMap.get('listId');
   });
+  console.log('doc id received');
+    console.log(listId);
+
+    this.listsProvider.getList(listId).subscribe(
+      val => {this.shoppingList = val;
+      console.log("Subscribed")});
   }
 
   async addItem() {
@@ -67,7 +58,7 @@ export class ViewShoppingListPage implements OnInit {
                 const created = new Item();
                 created.name = name;
                 created.done = false;
-                this.items.push(created);
+                this.shoppingList.items.push(created);
                 this.listsProvider.updateList(this.shoppingList);
               }
             }
@@ -89,7 +80,7 @@ export class ViewShoppingListPage implements OnInit {
           {
             text: 'Yes',
             handler: () => {
-              this.items.splice(index, 1);
+              this.shoppingList.items.splice(index, 1);
               this.listsProvider.updateList(this.shoppingList);
             }
           }
