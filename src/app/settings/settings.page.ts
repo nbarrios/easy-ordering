@@ -40,9 +40,6 @@ export class SettingsPage implements OnInit {
       reader.readAsDataURL(event.target.files[0]);
 
       reader.onload = (ev) => {
-        // called once readAsDataURL is completed
-        console.log(reader.result);
-        console.log(event);
         this.profileImage = reader.result;
       };
 
