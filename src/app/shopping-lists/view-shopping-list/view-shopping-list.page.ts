@@ -10,14 +10,7 @@ import { Item as Item, ShoppingList } from '../models/ShoppingList';
   styleUrls: ['view-shopping-list.page.scss']
 })
 export class ViewShoppingListPage implements OnInit {
-  shoppingList: ShoppingList;
-  /*items = [{
-    name: 'Eggs'
-  }, {
-    name: 'Juice'
-  }, {
-    name: 'Bread'
-  }];*/
+  shoppingList: (ShoppingList);
   items: Item[] = null;
 
   constructor(public alertCtrl: AlertController,
@@ -33,17 +26,19 @@ export class ViewShoppingListPage implements OnInit {
     const listId = paramMap.get('listId');
     console.log(listId);
     this.listsProvider.getList(listId).subscribe(
-      val => {
-        this.shoppingList = val;
-        if (this.shoppingList != null && this.shoppingList.items == null) {
+      val => {this.shoppingList = val;});
+
+      if(this.shoppingList == null){
+        console.log("shoppinglist is null");
+      }else console.log("shoppinglist is not null");
+
+       /*if (this.shoppingList != null && this.shoppingList.items == null) {
           this.shoppingList.items = new Array<Item>();
           this.items = this.shoppingList.items;
         }
         else if (this.shoppingList != null) {
           this.items = this.shoppingList.items;
-        }
-      }
-    );
+        }*/
   });
   }
 

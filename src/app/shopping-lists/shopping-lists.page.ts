@@ -15,9 +15,10 @@ import { ListProviderService } from './list-provider.service';
 
 export class ShoppingListsPage implements OnInit {
 
-  shoppingLists: ShoppingList[];
+  //shoppingLists: ShoppingList[];
   editListName = -1;
   subscription: any;
+  shoppingLists: (ShoppingList & {docID: string;})[];
 
   constructor(public popoverController: PopoverController,
      public popoverService: PopoverService,
@@ -26,6 +27,7 @@ export class ShoppingListsPage implements OnInit {
      public listsProvider: ListProviderService
      //private clipboard: Clipboard
      ) {}
+
 
   ngOnInit(){
     this.subscription = this.popoverService.getpopoverActionEmitter()
@@ -74,7 +76,7 @@ export class ShoppingListsPage implements OnInit {
     this.editListName = -1;
   }
 
-  private async presentModal(list: ShoppingList) {
+  private async presentModal(list: ShoppingList & {docID: string;}) {
     const modal = await this.modalController.create({
       component: ChangeAccessModalComponent,
       //cssClass: 'my-custom-class',
@@ -111,7 +113,7 @@ export class ShoppingListsPage implements OnInit {
     const len = this.shoppingLists.length;
     let i = 0;
     while(i < len){
-      if(this.shoppingLists[i].id === id){
+      if(this.shoppingLists[i].docID === id){
         return i;
       }
       i++;
@@ -155,7 +157,7 @@ export class ShoppingListsPage implements OnInit {
   }
 
   private changeAccess(id: string){
-    const list = this.shoppingLists.filter(e => e.id === id);
+    const list = this.shoppingLists.filter(e => e.docID === id);
     if(list.length > 0){
       this.presentModal(list[0]);
     }

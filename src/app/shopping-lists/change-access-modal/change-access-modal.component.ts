@@ -9,7 +9,7 @@ import { ShoppingList, ShoppingListAccess } from '../models/ShoppingList';
   styleUrls: ['./change-access-modal.component.scss'],
 })
 export class ChangeAccessModalComponent implements OnInit {
-@Input() shoppingList: ShoppingList;
+@Input() shoppingList: ShoppingList & {docID: string;};
 @ViewChild('radioGroup') radioGroup: ElementRef<IonRadioGroup>;
 
 disabledlinkSharing: ShoppingListAccess = ShoppingListAccess.linkSharingDisabled;

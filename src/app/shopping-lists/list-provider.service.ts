@@ -15,46 +15,34 @@ export class ListProviderService {
   userCollection: AngularFirestoreCollection<ShoppingList> = null;
   constructor(
     public fireservice: FirebaseService,
-    public firestore: AngularFirestore)
-    {
+    public firestore: AngularFirestore){
       this.userCollection = this.firestore.collection<ShoppingList>(this.collectionName,
        ref => ref.where('owner', '==', this.fireservice.getUserID()));
     }
 
-     public getAllUserShoppingLists(): Observable<ShoppingList[]>
-     {
+     public getAllUserShoppingLists(): Observable<(ShoppingList & {docID: string;})[]>{
        return this.userCollection.valueChanges({idField: 'docID'});
      }
 
-     public getList(id: string): Observable<ShoppingList>
-     {
+     public getList(id: string): Observable<(ShoppingList & {docID: string;})>{
        console.log('getList id : ' + id);
        // return this.firestore.collection<ShoppingList>(this.collectionName).doc(id).valueChanges();
-       return this.firestore.collection<ShoppingList>(this.collectionName).doc(id).valueChanges();
+       return this.firestore.collection<ShoppingList>(this.collectionName).doc(id).valueChanges({idField: 'docID'});
      }
 
      public addList(list: ShoppingList)
      {
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-      return new Promise<any>((resolve, rejects) =>{
-        // map list to look like Javascript object notation
-        this.userCollection.add({
-          name: list.name,
-          id: '',
-          items: [],
-          access: list.access,
-          owner: this.fireservice.getUserID()
-        }).then(res => {this.updateDocId(res.id);}, err => console.log('addList error: '+err));
+      this.userCollection.add({
+        name: list.name,
+        items: [],
+        access: list.access,
+        owner: this.fireservice.getUserID()
       });
      }
 
-     private updateDocId(docId: string){
-       return this.userCollection.doc(docId).update({id: docId});
-     }
-
      // eslint-disable-next-line @typescript-eslint/member-ordering
-     public updateList(list: ShoppingList){
-      const listDoc = this.userCollection.doc(list.id);
+     public updateList(list: (ShoppingList & {docID: string;})){
+      const listDoc = this.userCollection.doc(list.docID);
       // Destroy and create a new doc
       listDoc.set(instanceToPlain(list) as ShoppingList);
     }
