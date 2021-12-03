@@ -44,7 +44,7 @@ export class FirebaseService {
         .then(credential => {
           this.user = credential.user;
           resolve(credential);
-        }, err => {
+        }).catch(err => {
           reject(err);
         });
     });

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FirebaseService, FirebaseUserData } from '../firebase.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -21,11 +22,20 @@ export class LoginPage implements OnInit {
     public router: Router,
     public fireService: FirebaseService,
     public firestore: AngularFirestore,
-    public auth: AngularFireAuth
+    public auth: AngularFireAuth,
+    public toastController: ToastController
   ) { }
 
   ngOnInit() {
-    console.log('Init');
+  }
+
+  displayToast(msg: string) {
+      const toast = this.toastController.create({
+        message: msg,
+        duration: 3000
+      }).then(val => {
+        val.present();
+      });
   }
 
   login(){
@@ -41,32 +51,35 @@ export class LoginPage implements OnInit {
           console.log(err);
         });
       }
-    },err=>{
+    }).catch(err => {
       const errCode = err.code;
       const errMessage = err.message;
+      let displayErrorMsg = '';
+
       if(errCode === 'auth/wrong-password') {
-        alert('Invalid password');
+        displayErrorMsg = 'Password is incorrect. Please try again.';
       }
       else if (errCode === 'auth/invalid-email') {
-        alert('Invalid email.');
+        displayErrorMsg = 'Invalid email.';
       }
       else if (errCode === 'auth/user-not-found') {
-        alert('Account is not found.');
+        displayErrorMsg = 'Account is not found.';
       }
       else if (errCode === 'auth/user-disabled') {
-        alert('Account is disabled or does not exist');
+        displayErrorMsg = 'Account is disabled or does not exist';
       }
       else {
-        alert(errMessage);
+        displayErrorMsg = errMessage;
       }
+
+      this.displayToast(displayErrorMsg);
     });
   }
 
   signup() {
     //Check that password fields match
     if (this.password !== this.confirmPassword) {
-      alert('Please confirm that the passwords match');
-      return;
+      this.displayToast('Please confirm that the passwords match');
     }
 
     const userData = new FirebaseUserData();
@@ -76,7 +89,7 @@ export class LoginPage implements OnInit {
         userData.uid = res.user.uid;
         this.fireService.saveDetails(userData).then(() => {
           console.log('Account created: ' + res.user.uid);
-          alert('Account successfully created.');
+          this.displayToast('Account successfully created.');
           this.router.navigateByUrl('/');
         },err=>{
           console.log(err);
@@ -85,21 +98,25 @@ export class LoginPage implements OnInit {
     },err=>{
       const errCode = err.code;
       const errMessage = err.message;
+      let displayErrorMsg = '';
+
       if(errCode === 'auth/email-already-in-use') {
-        alert('Email is already in use by another account.');
+        displayErrorMsg = 'Email is already in use by another account.';
       }
       else if (errCode === 'auth/invalid-email') {
-        alert('Invalid email.');
+        displayErrorMsg = 'Invalid email.';
       }
       else if (errCode === 'auth/operation-not-allowed') {
-        alert('Email and password accounts are not enabled.');
+        displayErrorMsg = 'Email and password accounts are not enabled.';
       }
       else if (errCode === 'auth/weak-password') {
-        alert('Password is weak. Please retry.');
+        displayErrorMsg = 'Password is weak. Please retry.';
       }
       else {
-        alert(errMessage);
+        displayErrorMsg = errMessage;
       }
+
+      this.displayToast(displayErrorMsg);
     });
   }
 
