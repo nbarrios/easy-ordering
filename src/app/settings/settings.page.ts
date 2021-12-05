@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FirebaseService, FirebaseUserData } from '../firebase.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { confirmPasswordReset, getAuth, sendPasswordResetEmail } from 'firebase/auth';
 
 @Component({
@@ -18,7 +18,8 @@ export class SettingsPage implements OnInit {
     public fireservice: FirebaseService,
     public firestore: AngularFirestore,
     public router: Router,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public toastController: ToastController
   ) {}
 
   ngOnInit() {
@@ -30,7 +31,16 @@ export class SettingsPage implements OnInit {
     });
   }
 
-  //NOT working~!!! WHY??
+  displayToast(msg: string) {
+      const toast = this.toastController.create({
+        message: msg,
+        duration: 3000,
+        position: 'middle'
+      }).then(val => {
+        val.present();
+      });
+  }
+
   //Changes Profile Picture
   changePicture(event) {
     if (event.target.files && event.target.files[0]) {
@@ -40,11 +50,10 @@ export class SettingsPage implements OnInit {
       reader.readAsDataURL(event.target.files[0]);
 
       reader.onload = (ev) => {
-        this.profileImage = reader.result;
+        this.userData.profileImage = reader.result.toString();
+        // Updates picture to Firebase
+        this.updateInfo();
       };
-
-      // Updates picture to Firebase
-      this.updateInfo();
     }
   }
 
@@ -73,8 +82,7 @@ export class SettingsPage implements OnInit {
   //Updates Information
   updateInfo() {
     this.fireservice.saveDetails(this.userData).then(() => {
-      console.log('Saved user details.');
-      alert('Account information successfully updated.');
+      this.displayToast('Account information successfully updated.');
     });
   }
 
@@ -84,28 +92,27 @@ export class SettingsPage implements OnInit {
     this.fireservice.auth.sendPasswordResetEmail(this.userData.email)
     .then(() => {
       // Password reset email sent!
-      console.log('Email to reset was sent.');
-      alert('Password reset link has been sent to your email.');
+      this.displayToast('Password reset link has been sent to your email.');
     },err=>{
       const errCode = err.code;
       const errMessage = err.message;
       if(errCode === 'auth/missing-email') {
-        alert('Email is missing.');
+        this.displayToast('Email is missing.');
       }
       else if (errCode === 'auth/invalid-email') {
-        alert('Invalid email.');
+        this.displayToast('Invalid email.');
       }
       else if (errCode === 'auth/missing-continue-uri') {
-        alert('Missing continue URL.');
+        this.displayToast('Missing continue URL.');
       }
       else if (errCode === 'auth/unauthorized-continue-uri') {
-        alert('Unauthorized continue URL.');
+        this.displayToast('Unauthorized continue URL.');
       }
       else if (errCode === 'auth/user-not-found') {
-        alert('Account is not found.');
+        this.displayToast('Account is not found.');
       }
       else {
-        alert(errMessage);
+        this.displayToast(errMessage);
       }
     });
   }
