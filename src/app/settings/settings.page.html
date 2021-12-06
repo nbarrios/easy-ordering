@@ -14,7 +14,7 @@
           <img [src]="userData.profileImage ? userData.profileImage : 'https://seekicon.com/free-icon-download/person-circle-outline_1.svg'" class=""> 
           <input type='file' (change)='changePicture($event)' class="select-profile-picture">
         </ion-label>
-        <ion-button *ngIf="userData.profileImage != 'https://seekicon.com/free-icon-download/person-circle-outline_1.svg'" (click)='delete()' id="deleteBTN" color="white">Delete Image</ion-button>
+        <ion-button *ngIf="userData.profileImage" (click)='delete()' id="deleteBTN" color="white">Delete Image</ion-button>
       </ion-col>
     </ion-row>
     <ion-row>
