@@ -7,10 +7,10 @@
 
   <ion-row>
     <ion-col id="userList">
-      <span *ngFor="let userOrder of order.orders | keyvalue; let i = index">
-        <span *ngIf="i < order.users.length - 1; else elsetag">{{ fireservice.nameForUser(userOrder.key) }}, &nbsp;</span>
+      <span *ngFor="let user of order.users; let i = index">
+        <span *ngIf="i < order.users.length - 1; else elsetag">{{ fireservice.nameForUser(user) }}, &nbsp;</span>
         <ng-template #elsetag>
-          <span>{{ fireservice.nameForUser(userOrder.key) }}</span>  
+          <span>{{ fireservice.nameForUser(user) }}</span>  
         </ng-template>
       </span>
     </ion-col>

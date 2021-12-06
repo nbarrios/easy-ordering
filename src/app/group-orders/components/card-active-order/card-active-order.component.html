@@ -20,10 +20,10 @@
   <ion-card-content>
     <ion-grid>
       <ion-row>
-        <div *ngFor="let userOrder of order.orders | keyvalue">
+        <div *ngFor="let user of order.users">
           <ion-chip>
             <!--<ion-icon src=''></ion-icon>-->
-            <ion-label>{{ fireservice.nameForUser(userOrder.key) }}</ion-label>
+            <ion-label>{{ fireservice.nameForUser(user) }}</ion-label>
           </ion-chip>
         </div>
       </ion-row>
