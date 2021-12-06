@@ -25,7 +25,6 @@ export class FirebaseService {
     public auth: AngularFireAuth
   ) {
     this.auth.user.subscribe(val => {
-      console.log('Received user');
       this.user = val;
     });
   }
