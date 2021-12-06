@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FirebaseService, FirebaseUserData } from 'src/app/firebase.service';
 import { GroupOrder } from '../../models/GroupOrder';
+import { OrderStatus } from '../../models/Members';
 
 @Component({
   selector: 'app-card-active-order',
@@ -19,4 +20,19 @@ export class CardActiveOrderComponent implements OnInit {
   ngOnInit() {
   }
 
+  iconForUserOrder(user: string): string {
+    if (this.order.orders.hasOwnProperty(user)) {
+      const userOrder = this.order.orders[user];
+      if (userOrder.status === OrderStatus.filled) { return 'checkmark-outline'; }
+    }
+    return 'close-outline';
+  }
+
+  colorForUserOrder(user: string): string {
+    if (this.order.orders.hasOwnProperty(user)) {
+      const userOrder = this.order.orders[user];
+      if (userOrder.status === OrderStatus.filled) { return 'green'; }
+    }
+    return 'red';
+  }
 }

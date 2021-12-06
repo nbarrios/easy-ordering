@@ -24,6 +24,7 @@
           <ion-chip>
             <!--<ion-icon src=''></ion-icon>-->
             <ion-label>{{ fireservice.nameForUser(user) }}</ion-label>
+            <ion-icon size="small" style="color:{{ colorForUserOrder(user) }}" name="{{ iconForUserOrder(user) }}"></ion-icon>
           </ion-chip>
         </div>
       </ion-row>
