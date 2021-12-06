@@ -19,10 +19,10 @@ export class OrdersProvider {
     public firestore: AngularFirestore
   ) {
     this.activeOrders = this.firestore.collection<GroupOrder>('orders',
-      ref => ref.where('owner', '==', this.fireservice.getUserID())
+      ref => ref.where('users', 'array-contains', this.fireservice.getUserID())
       .where('completed', '==', false));
     this.completedOrders = this.firestore.collection<GroupOrder>('orders',
-      ref => ref.where('owner', '==', this.fireservice.getUserID())
+      ref => ref.where('users', 'array-contains', this.fireservice.getUserID())
       .where('completed', '==', true));
   }
 

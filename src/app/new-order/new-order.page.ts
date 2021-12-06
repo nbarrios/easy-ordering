@@ -77,6 +77,7 @@ export class NewOrderPage implements OnInit {
         pickupTime: values.pickupTime,
         completed: false,
         owner: this.fireservice.getUserID(),
+        users: [this.fireservice.getUserID()],
         orders: instanceToPlain(userOrders)
       }).then(val => {
         this.router.navigateByUrl('/tabs/group-orders');

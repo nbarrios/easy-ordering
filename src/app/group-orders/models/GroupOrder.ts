@@ -11,5 +11,6 @@ export interface GroupOrder {
     pickupTime: string;
     completed: boolean;
     owner: string;
+    users: string[];
     orders: Map<string, UserOrder>;
 }
