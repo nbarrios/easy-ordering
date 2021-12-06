@@ -30,17 +30,17 @@
           <ion-list-header><h2>Pick-up list</h2></ion-list-header>
 
           <!-- Current user list -->
-          <ion-item-sliding #userPickupList [hidden]="hideUserPickupList">
+          <ion-item-sliding #userPickupList [hidden]="hideCurrentUserOrder">
             <ion-item>
               <ion-label>
                 <h2><b>{{ fireservice.nameForUser(userId) }}</b>&nbsp;(You)</h2>
                 <p style="flex:none; margin-left: 16px;">{{userOrder.order}}</p>
               </ion-label>
               <ion-item-options side="end">
-                <ion-item-option style="pointer-events: auto" (click)='modifyUserList()'>
+                <ion-item-option style="pointer-events: auto" (click)='modifyCurrentUserOrder()'>
                   Modify
                 </ion-item-option>
-                <ion-item-option color="danger" style="pointer-events: auto" (click)='deleteUserList()'>
+                <ion-item-option color="danger" style="pointer-events: auto" (click)='deleteCurrentUserOrder()'>
                   Delete
                 </ion-item-option>
               </ion-item-options>

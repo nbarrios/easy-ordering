@@ -28,7 +28,7 @@ export class ViewOrderPage implements OnInit {
   // current user info
   userOrder: UserOrder;
   userId: string;
-  hideUserPickupList = true;
+  hideCurrentUserOrder = true;
   hideInputOrder = false;
 
   constructor(
@@ -46,13 +46,12 @@ export class ViewOrderPage implements OnInit {
       this.orderId = paramMap.get('orderId');
       this.ordersProvider.getOrder(this.orderId).subscribe(val => {
         this.order = val;
-        this.userId = this.order.owner;
+        this.userId = this.fireservice.getUserID();
         if (this.order.orders.hasOwnProperty(this.userId)) {
           this.userOrder = this.order.orders[this.userId];
         } else {
           this.userOrder = new UserOrder();
         }
-        // using the first user, with userId from the list just for demo purposes
         this.setupUI();
       });
     });
@@ -68,36 +67,32 @@ export class ViewOrderPage implements OnInit {
     }, err => {
       console.log(err);
     });
-
-    this.hideUserPickupList = false;
-    this.hideInputOrder = true;
+    this.setupUI();
   }
 
-  modifyUserList() {
+  modifyCurrentUserOrder() {
     this.userInput.value = this.userOrder.order;
     this.hideInputOrder = false;
     this.userPickupList.closeOpened();
   }
 
-  deleteUserList() {
-    //TODO update order in database
+  deleteCurrentUserOrder() {
     this.userInput.value = '';
-    this.hideUserPickupList = true;
-    this.hideInputOrder = false;
     // Close the options in UI
     this.userPickupList.closeOpened();
     // update order
     this.userOrder.order = '';
     this.userOrder.status = OrderStatus.notFilled;
+    this.setupUI();
   }
 
   // Hide or show input field when loading the page based if the current user filled his list
   private setupUI(){
-    if(this.userOrder.status === OrderStatus.filled){
-      this.hideUserPickupList = false;
+    if (this.order.completed || this.userOrder.status === OrderStatus.filled){
+      this.hideCurrentUserOrder = false;
       this.hideInputOrder = true;
     }else{
-      this.hideUserPickupList = true;
+      this.hideCurrentUserOrder = true;
       this.hideInputOrder = false;
     }
   }
