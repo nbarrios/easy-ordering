@@ -11,14 +11,6 @@ import { Item as Item, ShoppingList } from '../models/ShoppingList';
 })
 export class ViewShoppingListPage implements OnInit {
   shoppingList: ShoppingList;
-  /*items = [{
-    name: 'Eggs'
-  }, {
-    name: 'Juice'
-  }, {
-    name: 'Bread'
-  }];*/
-  items: Item[] = null;
 
   constructor(public alertCtrl: AlertController,
      public listsProvider: ListProviderService, public activatedRoute: ActivatedRoute) {}
@@ -29,22 +21,14 @@ export class ViewShoppingListPage implements OnInit {
         console.log('No doc id ');
         return;
       }
-      console.log('doc id received');
-    const listId = paramMap.get('listId');
-    console.log(listId);
-    this.listsProvider.getList(listId).subscribe(
-      val => {
+      const listId = paramMap.get('listId');
+      this.listsProvider.getList(listId).subscribe(val => {
         this.shoppingList = val;
         if (this.shoppingList != null && this.shoppingList.items == null) {
           this.shoppingList.items = new Array<Item>();
-          this.items = this.shoppingList.items;
         }
-        else if (this.shoppingList != null) {
-          this.items = this.shoppingList.items;
-        }
-      }
-    );
-  });
+      });
+    });
   }
 
   async addItem() {
@@ -72,7 +56,7 @@ export class ViewShoppingListPage implements OnInit {
                 const created = new Item();
                 created.name = name;
                 created.done = false;
-                this.items.push(created);
+                this.shoppingList.items.push(created);
                 this.listsProvider.updateList(this.shoppingList);
               }
             }
@@ -94,12 +78,17 @@ export class ViewShoppingListPage implements OnInit {
           {
             text: 'Yes',
             handler: () => {
-              this.items.splice(index, 1);
+              this.shoppingList.items.splice(index, 1);
               this.listsProvider.updateList(this.shoppingList);
             }
           }
         ]
       }))
     .present();
+  }
+
+  itemCheckboxChange(e, index) {
+    this.shoppingList.items[index].done = e.detail.checked;
+    this.listsProvider.updateList(this.shoppingList);
   }
 }
