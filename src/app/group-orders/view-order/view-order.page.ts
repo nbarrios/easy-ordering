@@ -57,16 +57,19 @@ export class ViewOrderPage implements OnInit {
     });
   }
 
-  updateUserOrder(inputOrder: string) {
-    this.userOrder.order = inputOrder;
-    this.userOrder.status = OrderStatus.filled;
-
+  updateOrderInFirebase() {
     this.order.orders[this.userId] = this.userOrder;
     this.firestore.collection('orders').doc(this.orderId).update(instanceToPlain(this.order)).then(val => {
       //
     }, err => {
       console.log(err);
     });
+  }
+
+  updateUserOrder(inputOrder: string) {
+    this.userOrder.order = inputOrder;
+    this.userOrder.status = OrderStatus.filled;
+    this.updateOrderInFirebase();
     this.setupUI();
   }
 
@@ -83,6 +86,7 @@ export class ViewOrderPage implements OnInit {
     // update order
     this.userOrder.order = '';
     this.userOrder.status = OrderStatus.notFilled;
+    this.updateOrderInFirebase();
     this.setupUI();
   }
 
