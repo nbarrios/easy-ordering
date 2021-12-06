@@ -71,7 +71,8 @@ export class SettingsPage implements OnInit {
           {
             text: 'Yes',
             handler: () => {
-              this.profileImage = null;
+              this.userData.profileImage = 'https://seekicon.com/free-icon-download/person-circle-outline_1.svg';
+              this.updateInfo();
             }
           }
         ]

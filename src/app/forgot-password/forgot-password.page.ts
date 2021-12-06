@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FirebaseService, FirebaseUserData } from '../firebase.service';
 import { confirmPasswordReset, getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-forgot-password',
@@ -16,11 +17,22 @@ export class ForgotPasswordPage implements OnInit {
   constructor(
     public fireservice: FirebaseService,
     public firestore: AngularFirestore,
-    public router: Router
+    public router: Router,
+    public toastController: ToastController
   ) {}
 
   ngOnInit() {
   }
+
+  displayToast(msg: string) {
+    const toast = this.toastController.create({
+      message: msg,
+      duration: 3000,
+      position: 'middle'
+    }).then(val => {
+      val.present();
+    });
+}
 
   resetPassword() {
     const auth = getAuth();
@@ -29,28 +41,27 @@ export class ForgotPasswordPage implements OnInit {
     this.fireservice.auth.sendPasswordResetEmail(this.email)
     .then(() => {
       // Password reset email sent!
-      console.log('Email to reset was sent.')
-      alert('Password reset link has been sent to your email.');
+      this.displayToast('Password reset link has been sent to your email.');
     },err=>{
       const errCode = err.code;
       const errMessage = err.message;
       if(errCode === 'auth/missing-email') {
-        alert('Email is missing.');
+        this.displayToast('Email is missing.');
       }
       else if (errCode === 'auth/invalid-email') {
-        alert('Invalid email.');
+        this.displayToast('Invalid email.');
       }
       else if (errCode === 'auth/missing-continue-uri') {
-        alert('Missing continue URL.');
+        this.displayToast('Missing continue URL.');
       }
       else if (errCode === 'auth/unauthorized-continue-uri') {
-        alert('Unauthorized continue URL.');
+        this.displayToast('Unauthorized continue URL.');
       }
       else if (errCode === 'auth/user-not-found') {
-        alert('Account is not found.');
+        this.displayToast('Account is not found.');
       }
       else {
-        alert(errMessage);
+        this.displayToast(errMessage);
       }
     });
   }
