@@ -80,7 +80,9 @@ export class NewOrderPage implements OnInit {
         users: [this.fireservice.getUserID()],
         orders: instanceToPlain(userOrders)
       }).then(val => {
-        this.router.navigateByUrl('/tabs/group-orders');
+        navigator.clipboard.writeText('http://localhost:8100/tabs/group-orders/' + val.id).then(t => {
+          this.router.navigateByUrl('/tabs/group-orders');
+        });
       }, err => {
         this.submissionError = true;
       });
